@@ -1,0 +1,318 @@
+﻿@model FPCS.Web.Admin.Models.JournalAppeal.JournalAppealDetailModel
+
+<div class="row-fluid form-horizontal">
+	 <div class="row-fluid">
+		<div class="tabbable">
+			<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+				<li id="liInfo" class="active">
+					<a data-toggle="tab" href="#info">Сведения об обращении</a>
+				</li>				
+				<li id="liApplicant">
+					<a data-toggle="tab" href="#applicant">Информация о заявителе</a>
+				</li>
+				<li id="liReceivedTreatment">
+					<a data-toggle="tab" href="#receivedTreatment">Информация о лице, в отношении которого поступило обращение</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div id="info" class="tab-pane in active">
+					<h3 class="header smaller lighter green clearfix">
+						Подробные сведения об обращении						
+					</h3>
+                    <div class="form-actions-detail">
+                        <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                            <i class="icon-reply bigger-110"></i>
+                            Закрыть
+                        </button>
+                    </div>
+                    
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealUniqueNumber, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealUniqueNumber, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.Date, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.Date, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.Time, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.Time, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.SourceIncomeName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.SourceIncomeName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.OrganizationName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.OrganizationName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.TypeOfAddressingName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.TypeOfAddressingName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.WayOfAddressingName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.WayOfAddressingName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealTheme, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealTheme, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealContent, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextAreaFor(x => x.AppealContent, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ComplaintName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ComplaintName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealOrganizationName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealOrganizationName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealOrganizationCode, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealOrganizationCode, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.TakingAppealLineName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.TakingAppealLineName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AcceptedBy, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AcceptedBy, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReviewAppealLineName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReviewAppealLineName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.Responsible, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.Responsible, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealPlanEndDate, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealPlanEndDate, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealFactEndDate, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealFactEndDate, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="form-actions-detail">
+						<button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+							<i class="icon-reply bigger-110"></i>
+							Закрыть
+						</button>
+					</div>
+				</div>
+				
+				<div id="applicant" class="tab-pane">
+					<h3 class="header smaller lighter green clearfix">
+						Информация о заявителе
+					</h3>
+                    <div class="form-actions-detail">
+                        <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                            <i class="icon-reply bigger-110"></i>
+                            Закрыть
+                        </button>
+                    </div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.AppealResultName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.AppealResultName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantSurname, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantSurname, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantSecondName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantSecondName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantBirthDate, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantBirthDate, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantENP, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantENP, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantSMO, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantSMO, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantTypeDocument, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantTypeDocument, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantDocumentSeries, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantDocumentSeries, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantDocumentNumber, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantDocumentNumber, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantFeedbackAddress, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantFeedbackAddress, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantPhoneNumber, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantPhoneNumber, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ApplicantEmail, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ApplicantEmail, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="form-actions-detail">
+						<button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+							<i class="icon-reply bigger-110"></i>
+							Закрыть
+						</button>
+					</div>
+				</div>
+
+				<div id="receivedTreatment" class="tab-pane">
+					<h3 class="header smaller lighter green clearfix">
+						Информация о лице, в отношении которого поступило обращение
+					</h3>
+                    <div class="form-actions-detail">
+                        <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                            <i class="icon-reply bigger-110"></i>
+                            Закрыть
+                        </button>
+                    </div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonSurname, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonSurname, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonSecondName, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonSecondName, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonBirthDate, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonBirthDate, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonENP, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonENP, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonSMO, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonSMO, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonypeDocument, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonypeDocument, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonDocumentSeries, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonDocumentSeries, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+					<div class="control-group no-margin-bottom no-margin-top">
+						@Html.LabelFor(x => x.ReceivedTreatmentPersonDocumentNumber, new { @class = "control-label-detail" })
+						<div class="controls-detail">
+							@Html.TextBoxFor(x => x.ReceivedTreatmentPersonDocumentNumber, new { @class = "span5 auto-width-100", @readonly = "true" })
+						</div>
+					</div>
+
+					<div class="form-actions-detail">
+						<button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+							<i class="icon-reply bigger-110"></i>
+							Закрыть
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

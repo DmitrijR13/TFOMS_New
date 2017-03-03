@@ -1,0 +1,137 @@
+﻿@model FPCS.Web.Admin.Models.Report.ReportIndexModel
+@{
+	ViewBag.Title = "Отчеты";
+	ViewBag.Header = "Отчеты";
+	var t = "gfdgfdg";
+}
+
+@*@Html.Hidden("SmoId", Model.SmoId, new { id = "smoId" })
+@Html.Hidden("DateFrom", Model.DateFrom, new { id = "dateFromTemp" })
+@Html.Hidden("DateTo", Model.DateTo, new { id = "dateToTemp" })*@
+
+
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+<table>
+	<tr>
+		<td>
+			<div class="span12 no-margin-left no-margin-bottom no-margin-top">
+				<div class="control-group no-margin-top no-margin-bottom">
+					@Html.LabelFor(x => x.SmoId, new { @class = "control-label" })
+					<div class="controls no-margin-top no-margin-bottom">
+						@Html.DropDownListFor(x => x.SmoId, Model.Smos, "---Отчет по всем СМО---", new { @class = "span4", id ="ddlSmo"})
+					</div>
+				</div>
+				
+				<div class="control-group no-margin-top no-margin-bottom">
+					@Html.LabelFor(x => x.DateFrom, new { @class = "control-label" })
+					<div class="controls ">
+						<div class="row-fluid input-append no-margin-top no-margin-bottom">
+							@Html.TextBoxFor(x => x.DateFrom, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.DateFrom), @class = "span4", data_date_format = "dd.mm.yyyy", id = "txtDateFrom" })
+						</div>
+					</div>
+				</div>
+				<div class="control-group no-margin-top">
+					@Html.LabelFor(x => x.DateTo, new { @class = "control-label" })
+					<div class="controls ">
+						<div class="row-fluid input-append no-margin-top">
+							@Html.TextBoxFor(x => x.DateTo, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.DateTo), @class = "span4", data_date_format = "dd.mm.yyyy", id = "txtDateTo" })
+						</div>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div>
+				<table>
+					<tr>
+						<td>
+							<div class="dictionary-image-button" style="text-align: center;">
+								<span class="dictionary-image-button">
+									@*@using (Html.BeginForm("Report1", "Report"))*@
+									@using (Html.BeginForm("Report1", "Report"))
+                                    {
+                                        @Html.Hidden("dateFromPost", Model.DateFromTemp)
+                                        @Html.Hidden("dateToPost", Model.DateToTemp)
+                                        @Html.Hidden("smoIdPost", Model.SmoId)
+										<button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Обращения застрахованных лиц">
+											<img src="../../../Content/img/Report.png" />
+
+										</button>
+
+									}
+								</span>
+							</div>
+							<div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Обращения застрахованных лиц</div>
+						</td>
+						<td>
+							<div class="dictionary-image-button" style="text-align: center;">
+								<span class="dictionary-image-button">
+									@*@using (Html.BeginForm("Report2", "Report", new { smoId = @Model.SmoId, dateFrom = Model.DateFrom, dateTo = Model.DateTo }))*@
+									@using (Html.BeginForm("Report2", "Report"))
+                                    {
+                                        @Html.Hidden("dateFromPost2", Model.DateFromTemp)
+                                        @Html.Hidden("dateToPost2", Model.DateToTemp)
+                                        @Html.Hidden("smoIdPost2", Model.SmoId)
+										<button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Жалобы и причины">
+											<img src="../../../Content/img/Report.png" />
+										</button>
+									}
+								</span>
+							</div>
+							<div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Жалобы и причины</div>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</td>
+	</tr>
+</table>
+   
+
+<script>
+  $(document).ready(function() {
+	  $("#txtDateFrom").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtDateTo").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+  });
+</script> 
+
+
+   
+@section Styles {
+@Styles.Render("~/Content/css/jqGrid")
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqGrid")
+    <script type="text/javascript">
+	$(function () {
+	    $("#txtDateFrom").change(function () {
+	        var tempVal = $("#txtDateFrom").val();
+	        $('#dateFromPost').val(tempVal);
+	        $('#dateFromPost2').val(tempVal);
+	    });
+
+	    $("#txtDateTo").change(function () {
+	        var tempVal = $("#txtDateTo").val();
+	        $('#dateToPost').val(tempVal);
+	        $('#dateToPost2').val(tempVal);
+	    });
+
+	    $("#ddlSmo").change(function () {
+	        var tempVal = $("#ddlSmo").val();
+	        $('#smoIdPost').val(tempVal);
+	        $('#smoIdPost2').val(tempVal);
+	    });
+	});
+</script> 
+
+}

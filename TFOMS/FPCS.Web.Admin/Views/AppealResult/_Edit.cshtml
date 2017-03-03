@@ -1,0 +1,58 @@
+﻿@model FPCS.Web.Admin.Models.Dictionary.DictionaryEditModel
+
+<div class="row-fluid">
+    <div class="span12 ">
+        <div class="row-fluid">
+            <div class="span12 ">
+
+                @using (Html.BeginForm("_Edit", "AppealResult", FormMethod.Post, new { id = "editAppealResultForm", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <h3 class="lighter block green">Редактирование данных</h3>
+                        </div>
+                    </div>
+
+                        <div class="controls">
+                            @Html.ValidationSummary(true)
+                        </div>
+
+                        @Html.HiddenFor(x => x.Id);
+
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Code, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Code, new { placeholder = Html.DisplayNameFor(x => x.Code), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.Code)
+                        </div>
+                    </div>
+                        <div class="control-group">
+                            @Html.LabelFor(x => x.Name, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextAreaFor(x => x.Name, new { placeholder = Html.DisplayNameFor(x => x.Name), @class = "span9" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
+                       
+                        <div class="form-actions">
+                            <button class="btn btn-success editAppealResultSend" type="button">
+                                <i class="icon-ok bigger-110"></i>
+                                Сохранить
+                            </button>
+                            <button onclick="javascript:fpcs.closeDialog()" class="btn btn-info" type="button">
+                                <i class="icon-reply bigger-110"></i>
+                                Отменить
+                            </button>
+                        </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@Html.Script(Scripts.Render("~/bundles/jqueryval"))

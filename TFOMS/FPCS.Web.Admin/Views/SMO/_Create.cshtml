@@ -1,0 +1,91 @@
+﻿@model FPCS.Web.Admin.Models.SMO.SMOCreateModel
+
+<div class="row-fluid">
+    <div class="span12 ">
+
+        @using (Html.BeginForm("_Create", "SMO", FormMethod.Post, new { id = "createSMOForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <div class="controls">
+                    <h3 class="lighter block green">Заполните поля для добавления новой СМО</h3>
+                </div>
+            </div>
+
+            <div class="controls">
+                @Html.ValidationSummary(true)
+            </div>
+
+            <div class="control-group">
+                @Html.LabelFor(x => x.SmoCode, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.SmoCode, new { placeholder = Html.DisplayNameFor(x => x.SmoCode), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.SmoCode)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.KPP, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.KPP, new { placeholder = Html.DisplayNameFor(x => x.KPP), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.KPP)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.FullName, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.FullName, new { placeholder = Html.DisplayNameFor(x => x.FullName), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.FullName)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.ShortName, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.ShortName, new { placeholder = Html.DisplayNameFor(x => x.ShortName), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.ShortName)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.FactAddress, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.FactAddress, new { placeholder = Html.DisplayNameFor(x => x.FactAddress), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.FactAddress)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Director, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.Director, new { placeholder = Html.DisplayNameFor(x => x.Director), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.Director)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.FilialDirector, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextAreaFor(x => x.FilialDirector, new { placeholder = Html.DisplayNameFor(x => x.FilialDirector), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.FilialDirector)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.LicenseInfo, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.LicenseInfo, new { placeholder = Html.DisplayNameFor(x => x.LicenseInfo), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.LicenseInfo)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success createSMOSend" type="button">
+                    <i class="icon-ok bigger-110"></i>
+                    Сохранить
+                </button>
+                <button onclick="javascript:fpcs.closeDialog()" class="btn btn-info" type="button">
+                    <i class="icon-reply bigger-110"></i>
+                    Отменить
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@Html.Script(Scripts.Render("~/bundles/jqueryval"))

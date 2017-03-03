@@ -1,0 +1,94 @@
+﻿@model FPCS.Web.Admin.Models.User.UserCreateModel
+
+<div class="row-fluid">
+    <div class="span12 ">
+
+        @using (Html.BeginForm("_Create", "User", FormMethod.Post, new { id = "createUserForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("roleUser", Model.Role)
+            <div class="control-group">
+                <div class="controls">
+                    <h3 class="lighter block green">Создать пользователя</h3>
+                </div>
+            </div>
+    
+            <div class="controls">
+                @Html.ValidationSummary(true)
+            </div>
+    
+            @Html.HiddenFor(x => x.DbUserId)
+
+            <div class="control-group">
+                @Html.LabelFor(x => x.FirstName, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.FirstName, new { placeholder = Html.DisplayNameFor(x => x.FirstName), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.LastName, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.LastName, new { placeholder = Html.DisplayNameFor(x => x.LastName), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.MiddleInitial, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.MiddleInitial, new { placeholder = Html.DisplayNameFor(x => x.MiddleInitial), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.MiddleInitial)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Role, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.DropDownListFor(x => x.Role, Model.Roles, new { @class = "span9", id = "ddlRole" })
+                    @Html.ValidationMessageFor(m => m.Role)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Email, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.Email, new { placeholder = Html.DisplayNameFor(x => x.Email), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Login, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.TextBoxFor(x => x.Login, new { placeholder = Html.DisplayNameFor(x => x.Login), @class = "span9", id = "txtLogin" })
+                    @Html.ValidationMessageFor(m => m.Login)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.Password, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.PasswordFor(x => x.Password, new { placeholder = Html.DisplayNameFor(x => x.Password), @class = "span9", id = "txtPassword" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(x => x.SmoId, new { @class = "control-label", id = "lblSmo" })
+                <div class="controls">
+                    @Html.DropDownListFor(x => x.SmoId, Model.Smos, new { @class = "span6", id = "ddlSmo" })
+                    @Html.ValidationMessageFor(m => m.SmoId)
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-success createUserSend" type="button">
+                    <i class="icon-ok bigger-110"></i>
+                    Сохранить
+                </button>
+                <button onclick="javascript:fpcs.closeDialog()" class="btn btn-info" type="button">
+                    <i class="icon-reply bigger-110"></i>
+                    Отмена
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@Html.Script(Scripts.Render("~/bundles/jqueryval"))
