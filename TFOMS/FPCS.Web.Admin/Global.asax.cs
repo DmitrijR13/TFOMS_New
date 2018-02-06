@@ -26,6 +26,7 @@ namespace FPCS.Web.Admin
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            App_Start.AutoMapperConfig.Initialize();
         }
     }
 }

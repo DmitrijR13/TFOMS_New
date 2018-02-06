@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             appealResult.Code = code;
             appealResult.Name = name;
-            appealResult.UpdatedDate = DateTimeOffset.Now;
+            appealResult.UpdatedDate = DateTime.Now;
 
             return appealResult;
         }

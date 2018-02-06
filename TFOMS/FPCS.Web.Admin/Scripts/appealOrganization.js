@@ -40,7 +40,7 @@
 		fpcs.jqGrid.initFilterToolbar("AppealOrganization");
 
 		if (fpcs.getIsAdmin()) {
-		    fpcs.jqGrid.initNavButtons("/AppealOrganization/DeleteAll", sourceIncome.showCreateDialog, "Добавить новую запись");
+		    fpcs.jqGrid.initNavButtons("/AppealOrganization/DeleteAll", appealOrganization.showCreateDialog, "Добавить новую запись");
 		} else {
 		    fpcs.jqGrid.initNavButtons(null, null, "");
 		}

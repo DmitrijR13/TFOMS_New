@@ -21,6 +21,10 @@ namespace FPCS.Data.Cofigs
             Property(x => x.Director);
             Property(x => x.FilialDirector);
             Property(x => x.LicenseInfo);
+            Property(x => x.HeadSurname);
+            Property(x => x.HeadName);
+            Property(x => x.HeadSecondName);
+            Property(x => x.HeadPosition);
         }
     }
 }

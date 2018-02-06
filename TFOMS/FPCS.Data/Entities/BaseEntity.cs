@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FPCS.Data.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPCS.Data.Entities
 {
@@ -11,8 +12,10 @@ namespace FPCS.Data.Entities
     {
         public Boolean IsDeleted { get; set; }
 
-        public DateTimeOffset CreatedDate { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime CreatedDate { get; set; }
 
-        public DateTimeOffset UpdatedDate { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime UpdatedDate { get; set; }
     }
 }

@@ -15,8 +15,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.sourceincomeid);
             
@@ -26,7 +26,7 @@ namespace FPCS.Data.Migrations
                     {
                         journalappealid = c.Long(nullable: false, identity: true),
                         appealuniquenumber = c.String(nullable: false, maxLength: 36),
-                        date = c.DateTimeOffset(nullable: false, precision: 7),
+                        date = c.DateTime(nullable: false, precision: 7),
                         time_ = c.String(),
                         sourceincomeid = c.Long(nullable: false),
                         organizationname = c.String(),
@@ -41,13 +41,13 @@ namespace FPCS.Data.Migrations
                         acceptedby = c.String(nullable: false),
                         reviewappeallineid = c.Long(),
                         responsible = c.String(nullable: false),
-                        appealplanenddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        appealfactenddate = c.DateTimeOffset(precision: 7),
+                        appealplanenddate = c.DateTime(nullable: false, precision: 7),
+                        appealfactenddate = c.DateTime(precision: 7),
                         appealresultid = c.Long(),
                         applicantsurname = c.String(),
                         applicantname = c.String(),
                         applicantsecondname = c.String(),
-                        applicantbirthdate = c.DateTimeOffset(precision: 7),
+                        applicantbirthdate = c.DateTime(precision: 7),
                         applicantenp = c.String(),
                         applicantsmo = c.String(),
                         applicanttypedocument = c.String(),
@@ -59,15 +59,15 @@ namespace FPCS.Data.Migrations
                         receivedtreatmentpersonsurname = c.String(),
                         receivedtreatmentpersonname = c.String(),
                         receivedtreatmentpersonsecondname = c.String(),
-                        receivedtreatmentpersonbirthdate = c.DateTimeOffset(precision: 7),
+                        receivedtreatmentpersonbirthdate = c.DateTime(precision: 7),
                         receivedtreatmentpersonenp = c.String(),
                         receivedtreatmentpersonsmo = c.String(),
                         receivedtreatmentpersonypedocument = c.String(),
                         receivedtreatmentpersondocumentseries = c.String(),
                         receivedtreatmentpersondocumentnumber = c.String(),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.journalappealid)
                 .ForeignKey("dbo.appealorganization", t => t.appealorganizationid)
@@ -95,8 +95,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.appealorganizationid);
             
@@ -108,8 +108,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.appealresultid);
             
@@ -121,8 +121,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.complaintid);
             
@@ -134,8 +134,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.reviewappeallineid);
             
@@ -147,8 +147,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.takingappeallineid);
             
@@ -160,8 +160,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.typeofaddressingid);
             
@@ -173,8 +173,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 3),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.wayofaddressingid);
             
@@ -186,8 +186,8 @@ namespace FPCS.Data.Migrations
                         code = c.String(nullable: false, maxLength: 8),
                         name = c.String(nullable: false, maxLength: 100),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.themeappealcitizensid);
             
@@ -207,8 +207,8 @@ namespace FPCS.Data.Migrations
                         islocked = c.Boolean(nullable: false),
                         role = c.Int(nullable: false),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.dbuserid);
             

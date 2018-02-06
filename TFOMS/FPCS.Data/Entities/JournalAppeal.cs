@@ -19,7 +19,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// дата поступления обращения
         /// </summary>
-        public DateTimeOffset Date { get; set; }
+        public DateTime? Date { get; set; }
 
         /// <summary>
         /// время поступления обращения
@@ -29,7 +29,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// ID истчоника поступления
         /// </summary>
-        public Int64 SourceIncomeId { get; set; }
+        public Int64? SourceIncomeId { get; set; }
 
         public virtual SourceIncome SourceIncome { get; set; }
 
@@ -41,19 +41,18 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// ID способа обращения
         /// </summary>
-        public Int64 TypeOfAddressingId { get; set; }
+        public Int64? TypeOfAddressingId { get; set; }
 
         public virtual TypeOfAddressing TypeOfAddressing { get; set; }
 
         /// <summary>
         /// ID вида обращения
         /// </summary>
-        public Int64 WayOfAddressingId { get; set; }
+        public Int64? WayOfAddressingId { get; set; }
 
         public virtual WayOfAddressing WayOfAddressing { get; set; }
 
-
-        public Int64 ThemeAppealCitizensId { get; set; }
+        public Int64? ThemeAppealCitizensId { get; set; }
 
         public virtual ThemeAppealCitizens ThemeAppealCitizens { get; set; }
 
@@ -72,7 +71,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// ID организация, ответственная за работу с обращением
         /// </summary>
-        public Int64 AppealOrganizationId { get; set; }
+        public Int64? AppealOrganizationId { get; set; }
 
         public virtual AppealOrganization AppealOrganization { get; set; }
 
@@ -88,7 +87,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// ID Линии принятия обращения
         /// </summary>
-        public Int64 TakingAppealLineId { get; set; }
+        public Int64? TakingAppealLineId { get; set; }
 
         public virtual TakingAppealLine TakingAppealLine { get; set; }
 
@@ -112,12 +111,12 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// Дата окончания срока рассмотрения обращения
         /// </summary>
-        public DateTimeOffset AppealPlanEndDate { get; set; }
+        public DateTime? AppealPlanEndDate { get; set; }
 
         /// <summary>
         /// Дата фактического закрытия обращения
         /// </summary>
-        public DateTimeOffset? AppealFactEndDate { get; set; }
+        public DateTime? AppealFactEndDate { get; set; }
 
         /// <summary>
         /// ID Результата обращения
@@ -144,7 +143,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// Дата рождения заявителя
         /// </summary>
-        public DateTimeOffset? ApplicantBirthDate { get; set; }
+        public DateTime? ApplicantBirthDate { get; set; }
 
         /// <summary>
         /// ЕНП заявителя
@@ -172,7 +171,7 @@ namespace FPCS.Data.Entities
         public String ApplicantDocumentNumber { get; set; }
 
         /// <summary>
-        /// Страховая принадлежность заявителя
+        /// Адрес для обратного ответа
         /// </summary>
         public String ApplicantFeedbackAddress{ get; set; }
 
@@ -204,7 +203,7 @@ namespace FPCS.Data.Entities
         /// <summary>
         /// Дата рождения заявлица, в отношении которого поступило обращениеителя
         /// </summary>
-        public DateTimeOffset? ReceivedTreatmentPersonBirthDate { get; set; }
+        public DateTime? ReceivedTreatmentPersonBirthDate { get; set; }
 
         /// <summary>
         /// ЕНП лица, в отношении которого поступило обращение

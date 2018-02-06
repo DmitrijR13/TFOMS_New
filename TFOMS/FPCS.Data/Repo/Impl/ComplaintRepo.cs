@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             complaint.Code = code;
             complaint.Name = name;
-            complaint.UpdatedDate = DateTimeOffset.Now;
+            complaint.UpdatedDate = DateTime.Now;
 
             return complaint;
         }

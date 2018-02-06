@@ -486,6 +486,23 @@ namespace FPCS.Web.Admin.Controllers
             System.IO.File.Delete(path);
         }
 
+        [HttpGet]
+        public virtual ActionResult Download(string fileGuid, string fileName)
+        {
+            if (TempData[fileGuid] != null)
+            {
+                byte[] data = TempData[fileGuid] as byte[];
+                return File(data, "application/vnd.ms-excel", fileName);
+            }
+            else
+            {
+                // Problem - Log the error, generate a blank file,
+                //           redirect to another controller action - whatever fits with your application
+                return new EmptyResult();
+            }
+        }
+
+
         private DataTable GetDataComplaints(String where)
         {
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -568,7 +585,7 @@ namespace FPCS.Web.Admin.Controllers
         private DataTable GetAllAppeal(String where)
         {
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            string cmdText = @"SELECT typeofaddressingid, count(*) FROM dbo.journalappeal" +
+            string cmdText = @"SELECT typeofaddressingid, count(*) FROM dbo.journalappeal ja " +
                                 where +
                                 " group by 1";
             //stream.WriteLine(cmdText);

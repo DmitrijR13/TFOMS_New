@@ -13,10 +13,10 @@ namespace FPCS.Web.Admin.Models.JournalAppeal
     public class JournalAppealDateAppealModel
     { 
         [Display(Name = "Фильтр обращений: Дата с")]
-        public DateTimeOffset? DateFrom { get; set; }
+        public DateTime? DateFrom { get; set; }
 
         [Display(Name = "Дата по")]
-        public DateTimeOffset? DateTo { get; set; }
+        public DateTime? DateTo { get; set; }
 
         [Display(Name = "Сообщение")]
         public String Message { get; set; }

@@ -68,7 +68,7 @@
 			pager: pager,
 			toppager: toppager,
 			rowNum: rowNum,
-			rowList: [10, 20, 50, 100, 100000],
+			rowList: [10, 20, 50, 100, 1000],
 
 			loadComplete: function () {
 				var table = this;
@@ -87,7 +87,7 @@
 					emptyMsgDiv.hide();
 				}
 
-				$("option[value=100000]").text('Все');
+				$("option[value=1000]").text('Все');
 			},
 
 			beforeRequest: function () {
@@ -131,7 +131,9 @@
 
 			gridComplete:
 				function () {
-					var ids = grid.jqGrid('getDataIDs');
+				    var ids = grid.jqGrid('getDataIDs');
+				    debugger;
+				    
 					for (var i = 0; i < ids.length; i++) {
 						var cl = ids[i];
 						var row = grid.getRowData(cl);
@@ -199,7 +201,6 @@
 		options.jsonReader.records = function (obj) {
 			return obj.totalRecordsCount;
 		};
-
 		grid.jqGrid(options);
 		grid.parent().nextAll().remove();
 		emptyMsgDiv.insertAfter(grid.parent());
@@ -372,6 +373,7 @@
 	saveLocalStorage: function (localStorageId) {
 		var gridInfo = {};
 
+		debugger;
 		gridInfo.url = grid.jqGrid('getGridParam', 'url');
 		gridInfo.sortname = grid.jqGrid('getGridParam', 'sortname');
 		gridInfo.sortorder = grid.jqGrid('getGridParam', 'sortorder');

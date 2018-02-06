@@ -136,6 +136,58 @@
             </div>
             <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">СМО</div>
         </td>
+        <td>
+            <div class="dictionary-image-button" style="text-align: center;">
+                <span class="dictionary-image-button">
+                    @using (Html.BeginForm("Index", "Worker"))
+                    {
+                        <button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Сотрудники">
+                            <img src="../../../Content/img/SMO.png" />
+                        </button>
+                    }
+                </span>
+            </div>
+            <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Сотрудники</div>
+        </td>
+        <td>
+            <div class="dictionary-image-button" style="text-align: center;">
+                <span class="dictionary-image-button">
+                    @using (Html.BeginForm("Index", "PassedEvent"))
+                    {
+                        <button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Проведенные мероприятия">
+                            <img src="../../../Content/img/AppealResult.png" />
+                        </button>
+                    }
+                </span>
+            </div>
+            <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Проведенные мероприятия</div>
+        </td>
+        <td>
+            <div class="dictionary-image-button" style="text-align: center;">
+                <span class="dictionary-image-button">
+                    @using (Html.BeginForm("Index", "MO"))
+                    {
+                        <button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Мед. органзации">
+                            <img src="../../../Content/img/SMO.png" />
+                        </button>
+                    }
+                </span>
+            </div>
+            <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Мед. ораганзации</div>
+        </td>
+        <td>
+            <div class="dictionary-image-button" style="text-align: center;">
+                <span class="dictionary-image-button">
+                    @using (Html.BeginForm("Index", "Organization"))
+                    {
+                        <button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Организации">
+                            <img src="../../../Content/img/SMO.png" />
+                        </button>
+                    }
+                </span>
+            </div>
+            <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Организации</div>
+        </td>
     </tr>
 </table>
 

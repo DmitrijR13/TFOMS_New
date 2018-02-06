@@ -1,0 +1,96 @@
+﻿@model FPCS.Web.Admin.Models.HandAppeal.HandAppealDateAppealModel
+@{
+    ViewBag.Title = "Обращений";
+    ViewBag.Header = "Обращений";
+}
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+
+<div class="gridWrapper">
+    <table>
+        <tr>
+            <td class="span3">
+                <div class="span3 no-margin-left">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.DateFrom, new { @class = "control-label" })
+                        <div class="controls ">
+                            <div class="input-append">
+                                @Html.TextBoxFor(x => x.DateFrom, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.DateFrom), @class = "span3", data_date_format = "dd.mm.yyyy", id = "txtDateFrom" })                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="span3">
+                <div class="span3">
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.DateTo, new { @class = "control-label" })
+                        <div class="controls ">
+                            <div class="input-append">
+                                @Html.TextBoxFor(x => x.DateTo, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.DateTo), @class = "span3", data_date_format = "dd.mm.yyyy", id = "txtDateTo" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="spanFilterButton no-margin-right">
+                <div class="spanFilterButton no-margin-right">
+                    <div class="form-actions-detail no-margin-right">
+                        <button class="btn-filter-detail btn-success no-margin-right applyFilter" type="button">
+                            <i class="icon-ok bigger-110"></i>
+                            Обновить
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td class="spanFilterButton no-margin-left">
+                <div class="spanFilterButton no-margin-left">
+                    <div class="form-actions-detail no-margin-left">
+                        <button class="btn-filter-detail btn-info no-margin-left clearFilter" type="button">
+                            <i class="icon-ok bigger-110"></i>
+                            Очистить
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+        <div class="row-fluid">
+            <div class="span12 gridWrapper">
+                <table id="gridTable"></table>
+                <div id="gridPager"></div>
+            </div>
+        </div>
+
+<script>
+  $(document).ready(function() {
+	  $("#txtDateFrom").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtDateTo").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+  });
+</script> 
+        @section Styles {
+            @Styles.Render("~/Content/css/jqGrid")
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqGrid")
+
+            <script type="text/javascript">
+                jQuery(function ($) {
+                    handAppeal.initIndexPage();
+
+                    window.addEventListener("resize", function () {
+                        $('.chzn-container').innerWidth($('#selecciona_paciente_estadisticas_form').innerWidth());
+                        $('.chzn-search input').innerWidth($('#selecciona_paciente_estadisticas_form').innerWidth() - 12);
+                        $('.chzn-drop').innerWidth($('#selecciona_paciente_estadisticas_form').innerWidth() - 2);
+                    }, false);
+                });
+            </script>
+}

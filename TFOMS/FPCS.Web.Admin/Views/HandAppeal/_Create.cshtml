@@ -1,0 +1,677 @@
+﻿@model FPCS.Web.Admin.Models.HandAppeal.HandAppealCreateModel
+@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>*@
+<script src="../../Scripts/jquery.sumoselect.js" type="text/javascript"></script>
+<link href="../../Content/Css/dropdownliststyle.css" rel="stylesheet" type="text/css" />
+<div class="row-fluid form-horizontal">
+	 <div class="row-fluid">
+@using (Html.BeginForm("_Create", "HandAppeal", FormMethod.Post, new { id = "createHandAppealForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="tabbable">
+        <div class="controls">
+            @Html.ValidationSummary(true)
+        </div>
+        @Html.HiddenFor(x => x.UniqueNumberPart1)
+        <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+            <li id="liInfo" class="active">
+                <a data-toggle="tab" href="#info">Сведения об обращении</a>
+            </li>
+            <li id="liGuide">
+                <a data-toggle="tab" href="#guide">Информация о направителе</a>
+            </li>
+            <li id="liApplicant">
+                <a data-toggle="tab" href="#applicant">Информация о заявителе</a>
+            </li>
+            <li id="liReceivedTreatment">
+                <a data-toggle="tab" href="#receivedTreatment">Информация о лице, в отношении которого поступило обращение</a>
+            </li>         
+            <li id="liInspection">
+                <a data-toggle="tab" href="#inspection">Организация экспертизы</a>
+            </li>
+            <li id="liReviewAppeal">
+                <a data-toggle="tab" href="#reviewAppeal">Рассмотрение обращения</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="info" class="tab-pane in active">
+                <h3 class="header smaller lighter green clearfix">
+                    Подробные сведения об обращении
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealUniqueNumber, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.AppealUniqueNumber, new { placeholder = Html.DisplayNameFor(x => x.AppealUniqueNumber), @class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.AppealUniqueNumber)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">                                  
+                                    @Html.LabelFor(x => x.Date, new { @class = "span6 red" })                                   
+                                    @Html.TextBoxFor(x => x.Date, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.Date), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtDate" })
+                                    @Html.ValidationMessageFor(m => m.Date)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.TypeOfAddressingName, new { @class = "span6 red" })
+                                    @Html.DropDownListFor(x => x.TypeOfAddressingId, Model.TypeOfAddressingName, new { @class = "span6 ddlTypeOfAddressing" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.WayOfAddressingName, new { @class = "span6 red" })
+                                    @Html.DropDownListFor(x => x.WayOfAddressingId, Model.WayOfAddressingName, new { @class = "span6 ddlWayOfAddressing" })
+                                    @Html.ValidationMessageFor(m => m.Date)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealTheme, new { @class = "span3 red" })
+                                    @Html.DropDownListFor(x => x.ThemeAppealCitizensId, Model.AppealTheme, new { @class = "span9 ddlAppealTheme" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealFile, new { @class = "span3" })
+                                    @Html.TextBoxFor(m => m.File, new { type = "file", name = "File", id = "File", @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if(!String.IsNullOrEmpty(Model.AppealFileName))
+                {
+                    <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                            <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                                <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                    <div class="controls mleft0">
+                                        @Html.Label("", " ", new { @class = "span3" })
+                                        @Html.Label("", Model.AppealFileName, new { @class = "span9 no-margin-left" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealContent, new { @class = "span3" })
+                                    @Html.TextAreaFor(x => x.AppealContent, new { @class = "span9" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @if (Model.WorkerId.HasValue)
+                                    {
+                                        @Html.LabelFor(x => x.WorkerName, new { @class = "span3" })
+                                    }
+                                    else
+                                    {
+                                        @Html.LabelFor(x => x.WorkerName, new { @class = "span3 red" })
+                                    }
+                                    @Html.DropDownListFor(x => x.WorkerId, Model.WorkerName, new { @class = "span9 ddlWorker" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealPlanEndDate, new { @class = "span6 red" })
+                                    @Html.TextBoxFor(x => x.AppealPlanEndDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.AppealPlanEndDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtAppealPlanEndDate" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealFactEndDate, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.AppealFactEndDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.AppealFactEndDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtAppealFactEndDate" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealNumber, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.AppealNumber, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.OZPZRegistrationDate, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.OZPZRegistrationDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.OZPZRegistrationDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txOZPZRegistrationDate" })
+                                    @Html.ValidationMessageFor(m => m.OZPZRegistrationDate)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.MOName, new { @class = "span3" })
+                                    <div class="span9 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                                        @Html.DropDownListFor(m => m.MedicalOrganizationId, Model.MOName, new { id = "ddlMOName", @multiple = "true", @class = "chosen-select span9", data_placeholder = " " })
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.Comment, new { @class = "span3" })
+                                    @Html.TextAreaFor(x => x.Comment, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ComplaintName, new { @class = "span6" })
+                                    @Html.DropDownListFor(x => x.ComplaintId, Model.ComplaintName, " ", new { @class = "span6 ddlComplaintName" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AppealResultName, new { @class = "span6" })
+                                    @Html.DropDownListFor(x => x.AppealResultId, Model.AppealResultName, " ", new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <div id="guide" class="tab-pane">
+                <h3 class="header smaller lighter green clearfix">
+                    Информация о направителе
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.GuideNumber, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.GuideNumber, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.GuideDate, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.GuideDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.GuideDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtGuideDate" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.OrganizationNameList, new { @class = "span3" })
+                                    <div class="span9 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                                        @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationNameList, new { id = "ddlOrganizationNameList", @multiple = "true", @class = "chosen-select span6", data_placeholder = " " })
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <div id="applicant" class="tab-pane">
+                <h3 class="header smaller lighter green clearfix">
+                    Информация о заявителе
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantSurname, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ApplicantSurname, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantName, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ApplicantName, new { @class = "span9" })                          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantSecondName, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ApplicantSecondName, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantBirthDate, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ApplicantBirthDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.ApplicantBirthDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtApplicantBirthDate" })                                       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantENP, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ApplicantENP, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantFeedbackAddress, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ApplicantFeedbackAddress, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantPhoneNumber, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ApplicantPhoneNumber, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ApplicantEmail, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ApplicantEmail, new { @class = "span6" })                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions-detail">
+                    <button class="btn btn-grey copyInfoToReceivedTreatment" type="button">
+                        В отношении себя
+                    </button>
+                </div>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <div id="receivedTreatment" class="tab-pane">
+                <h3 class="header smaller lighter green clearfix">
+                    Информация о лице, в отношении которого поступило обращение
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReceivedTreatmentPersonSurname, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ReceivedTreatmentPersonSurname, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReceivedTreatmentPersonName, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ReceivedTreatmentPersonName, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReceivedTreatmentPersonSecondName, new { @class = "span3" })
+                                    @Html.TextBoxFor(x => x.ReceivedTreatmentPersonSecondName, new { @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReceivedTreatmentPersonBirthDate, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReceivedTreatmentPersonBirthDate, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.ReceivedTreatmentPersonBirthDate), @class = "span6", data_date_format = "dd.mm.yyyy", id = "txtReceivedTreatmentPersonBirthDate" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReceivedTreatmentPersonENP, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReceivedTreatmentPersonENP, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.SMOOrganizationName, new { @class = "span3 red" })
+                                    @Html.DropDownListFor(x => x.SMOId, Model.SMOOrganizationName, "Выберете СМО", new { @class = "span9 ddlSMOOrganizationName" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <div id="inspection" class="tab-pane">
+                <h3 class="header smaller lighter green clearfix">
+                    Организация экспертизы
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+                <div class="control-group no-margin-bottom no-margin-top">
+                    @Html.LabelFor(x => x.PassedEventName, new { @class = "control-label-detail" })
+                    <div class="controls-detail">
+                        @Html.DropDownListFor(x => x.PassedEventId, Model.PassedEventName, "Выберете мероприятие", new { @class = "span5 auto-width-100 ddlPassedEvent" })
+                    </div>
+                </div>
+                <div class="control-group no-margin-bottom no-margin-top">
+                    @Html.LabelFor(x => x.InspectionKind, new { @class = "control-label-detail" })
+                    <div class="controls-detail">
+                        @Html.TextBoxFor(x => x.InspectionKind, new { @class = "span5 auto-width-100" })
+                    </div>
+                </div>
+                <div class="control-group no-margin-bottom no-margin-top">
+                    @Html.LabelFor(x => x.InspectionExpert, new { @class = "control-label-detail" })
+                    <div class="controls-detail">
+                        @Html.TextBoxFor(x => x.InspectionExpert, new { @class = "span5 auto-width-100" })
+                    </div>
+                </div>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <div id="reviewAppeal" class="tab-pane">
+                <h3 class="header smaller lighter green clearfix">
+                    Рассмотрение обращения
+                </h3>
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReviewAppealNumber, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReviewAppealNumber, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReviewAppealCode, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReviewAppealCode, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReviewAppealPenalty, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReviewAppealPenalty, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.ReviewAppealCashback, new { @class = "span6" })
+                                    @Html.TextBoxFor(x => x.ReviewAppealCashback, new { @class = "span6" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                    <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                            <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                <div class="controls mleft0">
+                                    @Html.LabelFor(x => x.AnswerFile, new { @class = "span3" })
+                                    @Html.TextBoxFor(m => m.PostedFile, new { type = "file", name = "PostedFile", id = "PostedFile", @class = "span9" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (!String.IsNullOrEmpty(Model.AnswerFileName))
+                {
+                    <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                        <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                            <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                                <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
+                                    <div class="controls mleft0">
+                                        @Html.Label("", " ", new { @class = "span3" })
+                                        @Html.Label("", Model.AnswerFileName, new { @class = "span9 no-margin-left" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="form-actions-detail">
+                    <button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
+                        <i class="icon-reply bigger-110"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" value="Сохранить"
+               name="createHandAppealSend" id="createHandAppealSend" class="btn btn-success" />
+        <button class="btn btn-success printReport" type="button">
+            <i class="icon-print bigger-110"></i>
+            Титул
+        </button>
+        <button class="btn btn-success printLetter" type="button">
+            <i class="icon-print bigger-110"></i>
+            Письмо
+        </button>
+    </div>
+}
+		
+	</div>
+</div>
+
+<script>
+    $('.chosen-select').chosen();
+</script>
+
+
+
+
+<script>
+  $(document).ready(function() {
+	  $("#txtDate").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtAppealPlanEndDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtAppealFactEndDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtApplicantBirthDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });  
+	  $("#txtReceivedTreatmentPersonBirthDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txOZPZRegistrationDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });
+	  $("#txtGuideDate").datepicker({
+	      dateFormat: "dd.mm.yyyy"
+	  });
+  });
+</script> 

@@ -9,10 +9,10 @@
             pagerSelector: "#gridPager",
             localStorageId: "JournalAppeal",
             url: "/JournalAppeal/_Index",
-            rowNum: 100000,
+            rowNum: 1000,
             showEditButton: false,
             showDeleteButton: false,
-            sortname: 'Name',
+            sortname: 'AppealOrganizationCode',
             //postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
             jsonReader: {
                 repeatitems: false,
@@ -76,7 +76,6 @@
         fpcs.jqGrid.initFilterToolbar("JournalAppeal");
 
         fpcs.jqGrid.initNavButtons(null, null, "");
-
         //fpcs.jqGrid.initNavPrintButton2(journalAppeal.initPrint2, 'Report1', 'Report1');
         //fpcs.jqGrid.initNavPrintButton2(journalAppeal.initPrint3, 'Report2', 'Report2');
         //fpcs.jqGrid.initNavPrintButton2(journalAppeal.initPrint4, 'Report3', 'Report3');

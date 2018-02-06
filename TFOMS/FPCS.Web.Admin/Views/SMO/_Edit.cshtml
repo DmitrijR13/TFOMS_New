@@ -77,7 +77,34 @@
                             @Html.ValidationMessageFor(m => m.LicenseInfo)
                         </div>
                     </div>
-
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.HeadSurname, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.HeadSurname, new { placeholder = Html.DisplayNameFor(x => x.HeadSurname), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.HeadSurname)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.HeadName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.HeadName, new { placeholder = Html.DisplayNameFor(x => x.HeadName), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.HeadName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.HeadSecondName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.HeadSecondName, new { placeholder = Html.DisplayNameFor(x => x.HeadSecondName), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.HeadSecondName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.HeadPosition, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.HeadPosition, new { placeholder = Html.DisplayNameFor(x => x.HeadPosition), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.HeadPosition)
+                        </div>
+                    </div>
                     <div class="form-actions">
                         <button class="btn btn-success editSMOSend" type="button">
                             <i class="icon-ok bigger-110"></i>

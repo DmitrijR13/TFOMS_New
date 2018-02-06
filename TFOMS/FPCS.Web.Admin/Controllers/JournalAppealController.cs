@@ -53,8 +53,15 @@ namespace FPCS.Web.Admin.Controllers
                     var userRuepo = uow.GetRepo<IUserRepo>();
                     smo = userRuepo.Get(dbUser.DbUserId).SMOId.Value;
                 }
+
                 
+                var dateFrom = DateTime.Today.AddDays(-30);
+
                 var journalAppeal = repo.GetAll()
+                    //.Where(x => x.CreatedDate >= dateFrom)
+                    .Where(x => x.Date.HasValue && x.SourceIncomeId.HasValue && x.TypeOfAddressingId.HasValue && x.WayOfAddressingId.HasValue
+                        && x.ThemeAppealCitizensId.HasValue && x.AppealOrganizationId.HasValue && x.TakingAppealLineId.HasValue && !String.IsNullOrEmpty(x.AcceptedBy)
+                            && !String.IsNullOrEmpty(x.AppealOrganizationCode) && x.AppealPlanEndDate.HasValue)
                     .Where(x => (dateFromFilter.HasValue ? x.Date >= dateFromFilter : x.JournalAppealId != 0) 
                     && (dateToFilter.HasValue ? x.Date <= dateToFilter : x.JournalAppealId != 0) 
                     && (smo != 0 ? x.SMO.SmoId == smo : 1==1))
@@ -69,7 +76,8 @@ namespace FPCS.Web.Admin.Controllers
                         x.AppealPlanEndDate,
                         x.AppealFactEndDate,
                         ResultName = x.AppealResult != null ? x.AppealResult.Name : "",
-                        AppealOrganizationCode = x.SMO.ShortName
+                        AppealOrganizationCode = x.SMO.ShortName,
+                        x.CreatedDate
                     })
                     .ToList();
 
@@ -78,11 +86,11 @@ namespace FPCS.Web.Admin.Controllers
                 {
                     Id = x.Id,
                     AppealUniqueNumber = x.AppealUniqueNumber,
-                    Date = x.Date.Date.ToString("dd/MM/yyyy"),
+                    Date = x.Date.Value.Date.ToString("dd/MM/yyyy"),
                     AppealTheme = x.AppealTheme,
                     AcceptedBy = x.AcceptedBy,
                     Responsible = x.Responsible,
-                    AppealPlanEndDate = x.AppealPlanEndDate.Date.ToString("dd/MM/yyyy"),
+                    AppealPlanEndDate = x.AppealPlanEndDate.Value.Date.ToString("dd/MM/yyyy"),
                     AppealFactEndDate = x.AppealFactEndDate.HasValue ? x.AppealFactEndDate.Value.Date.ToString("dd/MM/yyyy") : String.Empty,
                     ResultName = x.ResultName,
                     AppealOrganizationCode = x.AppealOrganizationCode
@@ -92,6 +100,7 @@ namespace FPCS.Web.Admin.Controllers
 
                 Int32 totalCount = resultTemp.Count();
 
+                engine = new GridDynamicEngine(options, journalAppealListOptions);
                 var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new JournalAppealIndexModel
                 {
                     Id = x.Id,
@@ -105,6 +114,7 @@ namespace FPCS.Web.Admin.Controllers
                     ResultName = x.ResultName,
                     AppealOrganizationCode = x.AppealOrganizationCode
                 });
+
 
                 return Json(result);
             }
@@ -123,7 +133,7 @@ namespace FPCS.Web.Admin.Controllers
                 {
                     Id = dbEntity.JournalAppealId,
                     AppealUniqueNumber = dbEntity.AppealUniqueNumber,
-                    Date = dbEntity.Date.Date.ToString("dd/MM/yyyy"),
+                    Date = dbEntity.Date.Value.Date.ToString("dd/MM/yyyy"),
                     Time = dbEntity.Time,
                     SourceIncomeName = dbEntity.SourceIncome != null ? dbEntity.SourceIncome.Name : String.Empty,
                     OrganizationName = dbEntity.OrganizationName,
@@ -138,7 +148,7 @@ namespace FPCS.Web.Admin.Controllers
                     AcceptedBy = dbEntity.AcceptedBy,
                     ReviewAppealLineName = dbEntity.ReviewAppealLine != null ? dbEntity.ReviewAppealLine.Name : String.Empty,
                     Responsible = dbEntity.Responsible,
-                    AppealPlanEndDate = dbEntity.AppealPlanEndDate.Date.ToString("dd/MM/yyyy"),
+                    AppealPlanEndDate = dbEntity.AppealPlanEndDate.Value.Date.ToString("dd/MM/yyyy"),
                     AppealFactEndDate = dbEntity.AppealFactEndDate.HasValue ? dbEntity.AppealFactEndDate.Value.Date.ToString("dd/MM/yyyy") : String.Empty,
                     AppealResultName = dbEntity.AppealResult != null ? dbEntity.AppealResult.Name : String.Empty,
                     ApplicantSurname = dbEntity.ApplicantSurname,

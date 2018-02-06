@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using FPCS.Core.Unity;
+using System.Data.Entity.Validation;
 
 namespace FPCS.Data
 {
@@ -27,6 +28,23 @@ namespace FPCS.Data
 
         public Int32 Commit()
         {
+            //try
+            //{
+            //    Context.SaveChanges();
+            //}
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        string str = $"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:";
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            string str2 = $"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"";
+            //        }
+            //    }
+            //    throw;
+            //}
+            //return 0;
             return Context.SaveChanges();
         }
 

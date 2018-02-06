@@ -19,8 +19,8 @@ namespace FPCS.Data.Migrations
                         appealnumber = c.String(),
                         comment = c.String(),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.flkid);
             

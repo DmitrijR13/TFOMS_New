@@ -11,7 +11,7 @@ namespace FPCS.Web.Admin
             // Script bundles
            
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-2.0.3.min.js"));
+                        "~/Scripts/jquery-2.0.3.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -95,11 +95,16 @@ namespace FPCS.Web.Admin
                         "~/Scripts/complaint.js",
                         "~/Scripts/appealOrganization.js",
                         "~/Scripts/takingAppealLine.js",
+                        "~/Scripts/passedEvent.js",
                         "~/Scripts/reviewAppealLine.js",
+                        "~/Scripts/worker.js",
                         "~/Scripts/appealResult.js",
                         "~/Scripts/journalAppeal.js",
+                        "~/Scripts/handAppeal.js",
                         "~/Scripts/flk.js",
                         "~/Scripts/themeAppealCitizens.js",
+                        "~/Scripts/mo.js",
+                        "~/Scripts/organization.js",
                         "~/Scripts/smo.js",
                          "~/Scripts/report.js",
                         //"~/Scripts/fpcs.teacher.js",

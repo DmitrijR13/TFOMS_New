@@ -23,7 +23,8 @@ namespace FPCS.Data.Repo.Impl
         /// <summary>
         /// Добавление новой СМО
         /// </summary>
-        public SMO Add(String smoCode, String kpp, String fullName, String shortName, String factAddress, String director, String filialDirector, String licenseInfo)
+        public SMO Add(String smoCode, String kpp, String fullName, String shortName, String factAddress, String director, String filialDirector, String licenseInfo, 
+            String headSurname, String headName, String headSecondName, String headPosition)
         {
             var smo =
                 Add(
@@ -38,7 +39,11 @@ namespace FPCS.Data.Repo.Impl
                     FilialDirector = filialDirector,
                     LicenseInfo = licenseInfo,
                     UpdatedDate = DateTime.Now,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.Now,
+                    HeadName = headName,
+                    HeadPosition = headPosition,
+                    HeadSecondName = headSecondName,
+                    HeadSurname = headSurname
                 });
 
             return smo;
@@ -47,7 +52,8 @@ namespace FPCS.Data.Repo.Impl
         /// <summary>
         /// Редактирование СМО
         /// </summary>
-        public SMO Update(Int64 smoId, String smoCode, String kpp, String fullName, String shortName, String factAddress, String director, String filialDirector, String licenseInfo)
+        public SMO Update(Int64 smoId, String smoCode, String kpp, String fullName, String shortName, String factAddress, String director, String filialDirector, String licenseInfo,
+            String headSurname, String headName, String headSecondName, String headPosition)
         {
             var smo = this.Get(smoId);
             if (smo == null) throw new NotFoundEntityException("Запись не найдена");
@@ -60,7 +66,11 @@ namespace FPCS.Data.Repo.Impl
             smo.Director = director;
             smo.LicenseInfo = licenseInfo;
             smo.FilialDirector = filialDirector;
-            smo.UpdatedDate = DateTimeOffset.Now;
+            smo.UpdatedDate = DateTime.Now;
+            smo.HeadName = headName;
+            smo.HeadPosition = headPosition;
+            smo.HeadSecondName = headSecondName;
+            smo.HeadSurname = headSurname;
 
             return smo;
         }

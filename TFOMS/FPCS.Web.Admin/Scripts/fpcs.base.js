@@ -22,27 +22,18 @@ fpcs.executeService = function (url, params, callbackSuccess) {
     });
 };
 
-fpcs.executeService2 = function (url, params, callbackSuccess) {
-
-    //var actionUrl = '@Url.Action("GenerateExcelReport", "ADC")';
-    var getUrl = '@Url.Action("_PrintReport1", "JournalAppeal")';
-    var actionUrl = '@Url.Action("GenerateExcelReport", "JournalAppeal")';
-    $.ajax(actionUrl, {
+fpcs.executeService2 = function (url, params) {
+    debugger;
+    $.ajax({
+        cache: false,
+        url: url,
         type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(params),
-        timeout: 1000000000,
-        success: function (d) {
-        if (d.success) {
-          window.location = getUrl + "?fName=" + d.fName;
-                 }
-        },
-        error: function () {
-            debugger;
-            fpcs.showErrorMessage();
+        data: params,
+        success: function (data) {
+            window.location = '/Report/Download?fileGuid=' + data.FileGuid
+                              + '&filename=' + data.FileName;
         }
-    });
+    })
 };
 
 fpcs.executeServiceWithConfirm = function (url, params, callbackSuccess) {
@@ -61,22 +52,46 @@ fpcs.executeServiceWithConfirm = function (url, params, callbackSuccess) {
 
 //action = '@Url.Action("Create1")'
 //sendForm('myForm', function (data, textStatus) { });
-fpcs.sendForm = function(formID, callbackSuccess) {
+//fpcs.sendForm = function(formID, callbackSuccess) {
+//    var form = $('#' + formID);
+
+//    if (form.valid == null || form.valid()) {
+//        $.ajax({
+//            type: "POST",
+//            url: form.attr("action"),
+//            data: form.serialize(),
+//            success: function (data, textStatus) {
+//                callbackSuccess.call(this, data, textStatus);
+//            },
+//            error: function (response) {
+//                fpcs.showErrorMessage();
+//            }
+//        });
+//    }
+//};
+
+fpcs.sendForm = function (formID, callbackSuccess) {
     var form = $('#' + formID);
+    var formdata = new FormData($('#' + formID).get(0));
     if (form.valid == null || form.valid()) {
         $.ajax({
             type: "POST",
             url: form.attr("action"),
-            data: form.serialize(),
-            success: function(data, textStatus) {
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (data, textStatus) {
+                debugger;
                 callbackSuccess.call(this, data, textStatus);
             },
-            error: function(response) {
+            error: function (response) {
+                debugger;
                 fpcs.showErrorMessage();
             }
         });
     }
 };
+
 
 fpcs.sendForm2 = function (formID, callbackSuccess) {
     var form = $(formID);
@@ -207,6 +222,7 @@ fpcs.showMessage = function(text) {
 fpcs.showDialog = function(title, html, width, isTop) {
     if (width == null) width = "65%";
     var position = ['center'];
+    debugger;
     if (isTop == undefined || isTop) { position = ['top', 20]; }
     $("#dialog-message").html(html);
     var d = $("#dialog-message");
@@ -216,7 +232,7 @@ fpcs.showDialog = function(title, html, width, isTop) {
         modal: true,
         close: false,
         //title: "<div class=widget-header widget-header-small><h4 class=smaller><i class=icon-ok></i> " + title + "</h4></div>",
-        title: '<div class="widget-header widget-header-small"><h4 class="smaller"><i class="icon-ok"></i> ' + title + '</h4></div>',
+        //title: '<div class="widget-header widget-header-small"><h4 class="smaller"><i class="icon-ok"></i> ' + title + '</h4></div>',
         //title: title,
         title_html: true,
         width: width,
@@ -243,11 +259,12 @@ fpcs.closeInternalDialog = function (obj) {
 }
 
 fpcs.initDatePicker = function() {
-    $('.date-picker').datepicker().next().on(ace.click_event, function() {
+    $('.date-picker').datepicker().next().on(ace.click_event, function () {
+        debugger;
         $(this).prev().focus();
     });
 
-    $('.date-mask').mask("99/99/9999", { placeholder: " " });
+    $('.date-mask').mask("99.99.9999", { placeholder: " " });
 };
 
 fpcs.initTimePicker = function(selector) {

@@ -28,6 +28,11 @@ namespace FPCS.Data
             modelBuilder.Configurations.Add(new FLKConfig());
             modelBuilder.Configurations.Add(new UserConfig());
             modelBuilder.Configurations.Add(new SMOConfig());
+            modelBuilder.Configurations.Add(new HandAppealConfig());
+            modelBuilder.Configurations.Add(new WorkerConfig());
+            modelBuilder.Configurations.Add(new PassedEventConfig());
+            modelBuilder.Configurations.Add(new MOConfig());
+            modelBuilder.Configurations.Add(new Organizationonfig());
         }
     }
 }

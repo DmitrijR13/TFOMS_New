@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             themeAppealCitizens.Code = code;
             themeAppealCitizens.Name = name;
-            themeAppealCitizens.UpdatedDate = DateTimeOffset.Now;
+            themeAppealCitizens.UpdatedDate = DateTime.Now;
 
             return themeAppealCitizens;
         }

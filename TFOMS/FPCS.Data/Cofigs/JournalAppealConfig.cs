@@ -13,46 +13,46 @@ namespace FPCS.Data.Cofigs
             HasKey(x => x.JournalAppealId);
             Property(x => x.JournalAppealId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).HasColumnName("journalappealid");
 
-            Property(x => x.AppealUniqueNumber).IsRequired().HasMaxLength(36).HasColumnName("appealuniquenumber");
-            Property(x => x.Date).IsRequired().HasColumnName("date");
+            Property(x => x.AppealUniqueNumber).HasMaxLength(36).HasColumnName("appealuniquenumber");
+            Property(x => x.Date).HasColumnName("date");
             Property(x => x.Time).HasColumnName("time_");
 
-            Property(x => x.SourceIncomeId).IsRequired().HasColumnName("sourceincomeid");
-            HasRequired(x => x.SourceIncome).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.SourceIncomeId).WillCascadeOnDelete(false);
+            Property(x => x.SourceIncomeId).HasColumnName("sourceincomeid");
+            HasOptional(x => x.SourceIncome).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.SourceIncomeId).WillCascadeOnDelete(false);
 
             Property(x => x.OrganizationName).HasColumnName("organizationname");
 
-            Property(x => x.TypeOfAddressingId).IsRequired().HasColumnName("typeofaddressingid");
-            HasRequired(x => x.TypeOfAddressing).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.TypeOfAddressingId).WillCascadeOnDelete(false);
+            Property(x => x.TypeOfAddressingId).HasColumnName("typeofaddressingid");
+            HasOptional(x => x.TypeOfAddressing).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.TypeOfAddressingId).WillCascadeOnDelete(false);
 
-            Property(x => x.WayOfAddressingId).IsRequired().HasColumnName("wayofaddressingid");
-            HasRequired(x => x.WayOfAddressing).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.WayOfAddressingId).WillCascadeOnDelete(false);
+            Property(x => x.WayOfAddressingId).HasColumnName("wayofaddressingid");
+            HasOptional(x => x.WayOfAddressing).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.WayOfAddressingId).WillCascadeOnDelete(false);
 
-            Property(x => x.ThemeAppealCitizensId).IsRequired().HasColumnName("appealtheme");
-            HasRequired(x => x.ThemeAppealCitizens).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.ThemeAppealCitizensId).WillCascadeOnDelete(false);
+            Property(x => x.ThemeAppealCitizensId).HasColumnName("appealtheme");
+            HasOptional(x => x.ThemeAppealCitizens).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.ThemeAppealCitizensId).WillCascadeOnDelete(false);
 
             Property(x => x.AppealContent).HasMaxLength(5000).HasColumnName("appealcontent");
 
             Property(x => x.ComplaintId).HasColumnName("complaintid");
             HasOptional(x => x.Complaint).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.ComplaintId).WillCascadeOnDelete(false);
 
-            Property(x => x.AppealOrganizationId).IsRequired().HasColumnName("appealorganizationid");
-            HasRequired(x => x.AppealOrganization).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.AppealOrganizationId).WillCascadeOnDelete(false);
+            Property(x => x.AppealOrganizationId).HasColumnName("appealorganizationid");
+            HasOptional(x => x.AppealOrganization).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.AppealOrganizationId).WillCascadeOnDelete(false);
 
             Property(x => x.SMOId).HasColumnName("smoid");
             HasOptional(x => x.SMO).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.SMOId).WillCascadeOnDelete(false);
 
-            Property(x => x.TakingAppealLineId).IsRequired().HasColumnName("takingappeallineid");
-            HasRequired(x => x.TakingAppealLine).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.TakingAppealLineId).WillCascadeOnDelete(false);
+            Property(x => x.TakingAppealLineId).HasColumnName("takingappeallineid");
+            HasOptional(x => x.TakingAppealLine).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.TakingAppealLineId).WillCascadeOnDelete(false);
 
-            Property(x => x.AcceptedBy).IsRequired().HasColumnName("acceptedby");
-            Property(x => x.AppealOrganizationCode).IsRequired().HasColumnName("appealorganizationcode");
+            Property(x => x.AcceptedBy).HasColumnName("acceptedby");
+            Property(x => x.AppealOrganizationCode).HasColumnName("appealorganizationcode");
 
             Property(x => x.ReviewAppealLineId).HasColumnName("reviewappeallineid");
             HasOptional(x => x.ReviewAppealLine).WithMany(x => x.JournalAppeals).HasForeignKey(x => x.ReviewAppealLineId).WillCascadeOnDelete(false);
 
             Property(x => x.Responsible).HasColumnName("responsible");
-            Property(x => x.AppealPlanEndDate).IsRequired().HasColumnName("appealplanenddate");
+            Property(x => x.AppealPlanEndDate).HasColumnName("appealplanenddate");
             Property(x => x.AppealFactEndDate).HasColumnName("appealfactenddate");
 
             Property(x => x.AppealResultId).HasColumnName("appealresultid");

@@ -21,7 +21,7 @@ namespace FPCS.Data.Repo.Impl
         public override void Remove(DbUser entity)
         {
             entity.IsDeleted = true;
-            entity.UpdatedDate = DateTimeOffset.Now;
+            entity.UpdatedDate = DateTime.Now;
         }
 
         #endregion override methods
@@ -79,7 +79,7 @@ namespace FPCS.Data.Repo.Impl
             dbEntity.Login = login;
             dbEntity.IsLocked = isLocked;
             if (!String.IsNullOrEmpty(password)) dbEntity.Password = password;
-            dbEntity.UpdatedDate = DateTimeOffset.Now;
+            dbEntity.UpdatedDate = DateTime.Now;
 
             return dbEntity;
         }

@@ -15,11 +15,11 @@
                         </div>
                     </div>
 
-                        <div class="controls">
-                            @Html.ValidationSummary(true)
-                        </div>
+                    <div class="controls">
+                        @Html.ValidationSummary(true)
+                    </div>
 
-                        @Html.HiddenFor(x => x.Id);
+                    @Html.HiddenFor(x => x.Id)
 
                     <div class="control-group">
                         @Html.LabelFor(x => x.Code, new { @class = "control-label" })

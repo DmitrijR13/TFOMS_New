@@ -65,7 +65,7 @@
 		fpcs.jqGrid.initGridResize();
 		fpcs.jqGrid.initFilterToolbar("SMO");
 		if (fpcs.getIsAdmin()) {
-		    fpcs.jqGrid.initNavButtons("/SMO/DeleteAll", sourceIncome.showCreateDialog, "Добавить новую запись");
+		    fpcs.jqGrid.initNavButtons("/SMO/DeleteAll", smo.showCreateDialog, "Добавить новую запись");
 		} else {
 		    fpcs.jqGrid.initNavButtons(null, null, "");
 		}

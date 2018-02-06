@@ -29,6 +29,11 @@ namespace FPCS.Data
             container.RegisterType<IUserRepo, UserRepo>();
             container.RegisterType<ISMORepo, SMORepo>();
             container.RegisterType<IThemeAppealCitizensRepo, ThemeAppealCitizensRepo>();
+            container.RegisterType<IHandAppealRepo, HandAppealRepo>();
+            container.RegisterType<IWorkerRepo, WorkerRepo>();
+            container.RegisterType<IPassedEventRepo, PassedEventRepo>();
+            container.RegisterType<IMORepo, MORepo>();
+            container.RegisterType<IOrganizationRepo, OrganizationRepo>();
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudentManagementContext, Configuration>());
 

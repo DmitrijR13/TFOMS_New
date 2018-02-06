@@ -135,6 +135,12 @@
 							@Html.TextBoxFor(x => x.AppealFactEndDate, new { @class = "span5 auto-width-100", @readonly = "true" })
 						</div>
 					</div>
+                    <div class="control-group no-margin-bottom no-margin-top">
+                        @Html.LabelFor(x => x.AppealResultName, new { @class = "control-label-detail" })
+                        <div class="controls-detail">
+                            @Html.TextBoxFor(x => x.AppealResultName, new { @class = "span5 auto-width-100", @readonly = "true" })
+                        </div>
+                    </div>
 					<div class="form-actions-detail">
 						<button onclick="javascript:fpcs.closeDialog()" class="btn-small-detail btn-info" type="button">
 							<i class="icon-reply bigger-110"></i>
@@ -153,12 +159,6 @@
                             Закрыть
                         </button>
                     </div>
-					<div class="control-group no-margin-bottom no-margin-top">
-						@Html.LabelFor(x => x.AppealResultName, new { @class = "control-label-detail" })
-						<div class="controls-detail">
-							@Html.TextBoxFor(x => x.AppealResultName, new { @class = "span5 auto-width-100", @readonly = "true" })
-						</div>
-					</div>
 					<div class="control-group no-margin-bottom no-margin-top">
 						@Html.LabelFor(x => x.ApplicantSurname, new { @class = "control-label-detail" })
 						<div class="controls-detail">

@@ -40,7 +40,7 @@
 		fpcs.jqGrid.initFilterToolbar("ReviewAppealLine");
 
 		if (fpcs.getIsAdmin()) {
-		    fpcs.jqGrid.initNavButtons("/ReviewAppealLine/DeleteAll", sourceIncome.showCreateDialog, "Добавить новую запись");
+		    fpcs.jqGrid.initNavButtons("/ReviewAppealLine/DeleteAll", reviewAppealLine.showCreateDialog, "Добавить новую запись");
 		} else {
 		    fpcs.jqGrid.initNavButtons(null, null, "");
 		}

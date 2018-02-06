@@ -51,5 +51,25 @@ namespace FPCS.Web.Admin.Models.SMO
         /// Сведения о лицензии
         /// </summary>
         public String LicenseInfo { get; set; }
+
+        /// <summary>
+        /// Фамилия руководителя
+        /// </summary>
+        public String HeadSurname { get; set; }
+
+        /// <summary>
+        /// Имя руководителя
+        /// </summary>
+        public String HeadName { get; set; }
+
+        /// <summary>
+        /// Отчетсво руководителя
+        /// </summary>
+        public String HeadSecondName { get; set; }
+
+        /// <summary>
+        /// Должность руководителя
+        /// </summary>
+        public String HeadPosition { get; set; }
     }
 }

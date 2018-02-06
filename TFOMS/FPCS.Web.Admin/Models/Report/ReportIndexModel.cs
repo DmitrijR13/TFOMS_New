@@ -19,16 +19,16 @@ namespace FPCS.Web.Admin.Models.Report
         public Int64? SmoId { get; set; }
 
         [Display(Name = "Дата с")]
-        public DateTimeOffset DateFrom { get; set; }
+        public DateTime DateFrom { get; set; }
 
         [Display(Name = "Дата по")]
-        public DateTimeOffset DateTo { get; set; }
+        public DateTime DateTo { get; set; }
 
         [Display(Name = "Дата с")]
-        public DateTimeOffset DateFromTemp { get; set; }
+        public DateTime DateFromTemp { get; set; }
 
         [Display(Name = "Дата по")]
-        public DateTimeOffset DateToTemp { get; set; }
+        public DateTime DateToTemp { get; set; }
 
         public void Init()
         {

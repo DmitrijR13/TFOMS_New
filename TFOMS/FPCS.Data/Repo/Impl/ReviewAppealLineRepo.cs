@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             reviewAppealLine.Code = code;
             reviewAppealLine.Name = name;
-            reviewAppealLine.UpdatedDate = DateTimeOffset.Now;
+            reviewAppealLine.UpdatedDate = DateTime.Now;
 
             return reviewAppealLine;
         }

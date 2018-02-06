@@ -40,7 +40,7 @@
 		fpcs.jqGrid.initFilterToolbar("TypeOfAddressing");
 
 		if (fpcs.getIsAdmin()) {
-		    fpcs.jqGrid.initNavButtons("/TypeOfAddressing/DeleteAll", sourceIncome.showCreateDialog, "Добавить новую запись");
+		    fpcs.jqGrid.initNavButtons("/TypeOfAddressing/DeleteAll", typeOfAddressing.showCreateDialog, "Добавить новую запись");
 		} else {
 		    fpcs.jqGrid.initNavButtons(null, null, "");
 		}

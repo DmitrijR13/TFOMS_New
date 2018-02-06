@@ -50,13 +50,17 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.70.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ConsoleAppliciation\ЕИРЦ_Импортер\ClosedXML.dll</HintPath>
+    <Reference Include="AutoMapper, Version=6.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.87.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.87.1\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\loadPack\loadPack\bin\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
@@ -135,6 +139,10 @@
       <HintPath>..\packages\Npgsql.2.2.7\lib\net45\Mono.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Morpher, Version=2.7.3.25391, Culture=neutral, PublicKeyToken=b5f4ee37bf0efa1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Morpher.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -154,6 +162,8 @@
       <HintPath>..\packages\NReco.PdfGenerator.1.1.12.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -228,6 +238,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Transactions" />
@@ -254,9 +265,15 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Words.NET, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.1.0\lib\Xceed.Words.NET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -272,7 +289,12 @@
     <Compile Include="Controllers\ComplaintController.cs" />
     <Compile Include="Controllers\AppealOrganizationController.cs" />
     <Compile Include="Controllers\FLKController.cs" />
+    <Compile Include="Controllers\HandAppealController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\PassedEventController.cs" />
+    <Compile Include="Controllers\MOController.cs" />
+    <Compile Include="Controllers\Organization.cs" />
+    <Compile Include="Controllers\WorkerController.cs" />
     <Compile Include="Controllers\TakingAppealLineController.cs" />
     <Compile Include="Controllers\ReviewAppealLineController.cs" />
     <Compile Include="Controllers\AppealResultController.cs" />
@@ -291,7 +313,27 @@
     </Compile>
     <Compile Include="Helpers\Access\AccessAction.cs" />
     <Compile Include="Helpers\Access\Models\AccessActionModel.cs" />
+    <Compile Include="Models\HandAppeal\CurrentOrganizationModel.cs" />
+    <Compile Include="Models\HandAppeal\CurrentMedicalOrganizationModel.cs" />
+    <Compile Include="Models\HandAppeal\LetterModel.cs" />
+    <Compile Include="Models\Organization\OrganizationCreateModel.cs" />
+    <Compile Include="Models\Organization\OrganizationEditModel.cs" />
+    <Compile Include="Models\Organization\OrganizationIndexModel.cs" />
+    <Compile Include="Models\Organization\OrganizationListOptions.cs" />
+    <Compile Include="Models\HandAppeal\PrintModel.cs" />
+    <Compile Include="Models\HandAppeal\UniqueNumberModel.cs" />
+    <Compile Include="Models\HandAppeal\GenerateUniqueNumberModel.cs" />
+    <Compile Include="Models\HandAppeal\HandAppealEditModel.cs" />
+    <Compile Include="Models\HandAppeal\HandAppealCreateModel.cs" />
+    <Compile Include="Models\HandAppeal\HandAppealIndexModel.cs" />
+    <Compile Include="Models\HandAppeal\HandAppealListOptions.cs" />
+    <Compile Include="Models\HandAppeal\HandAppelDateAppealModel.cs" />
+    <Compile Include="Models\JournalAppeal\FileUploadModel.cs" />
     <Compile Include="Models\JournalAppeal\JournalAppelDateAppealModel.cs" />
+    <Compile Include="Models\Worker\WorkerCreateModel.cs" />
+    <Compile Include="Models\Worker\WorkerEditModel.cs" />
+    <Compile Include="Models\Worker\WorkerIndexModel.cs" />
+    <Compile Include="Models\Worker\WorkerListOptions.cs" />
     <Compile Include="Models\SMO\SMOCreateModel.cs" />
     <Compile Include="Models\SMO\SMOEditModel.cs" />
     <Compile Include="Models\SMO\SMOIndexModel.cs" />
@@ -300,7 +342,6 @@
     <Compile Include="Models\FLK\FLKListOptions.cs" />
     <Compile Include="Models\JournalAppeal\JournalAppealDetailModel.cs" />
     <Compile Include="Models\JournalAppeal\JournalAppealIndexModel.cs" />
-    <Compile Include="Models\JournalAppeal\FileUploadModel.cs" />
     <Compile Include="Models\JournalAppeal\JournalAppealListOptions.cs" />
     <Compile Include="Models\Dictionary\DictionaryEditModel.cs" />
     <Compile Include="Models\Dictionary\DictionaryCreateModel.cs" />
@@ -362,6 +403,7 @@
     <Content Include="Content\css\chosen.css" />
     <Content Include="Content\css\chosen.min.css" />
     <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\dropdownliststyle.css" />
     <Content Include="Content\css\font-awesome-ie7.css" />
     <Content Include="Content\css\font-awesome-ie7.min.css" />
     <Content Include="Content\css\font-awesome.css" />
@@ -499,7 +541,14 @@
     <Content Include="Scripts\appealOrganization.js" />
     <Content Include="Scripts\flk.js" />
     <Content Include="Scripts\grid.locale-ru.js" />
+    <Content Include="Scripts\handAppeal.js" />
+    <Content Include="Scripts\jquery.sumoselect.js" />
+    <Content Include="Scripts\jquery.sumoselect.min.js" />
     <Content Include="Scripts\report.js" />
+    <Content Include="Scripts\passedEvent.js" />
+    <Content Include="Scripts\mo.js" />
+    <Content Include="Scripts\organization.js" />
+    <Content Include="Scripts\worker.js" />
     <Content Include="Scripts\takingAppealLine.js" />
     <Content Include="Scripts\reviewAppealLine.js" />
     <Content Include="Scripts\appealResult.js" />
@@ -760,6 +809,21 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\HandAppeal\_Create.cshtml" />
+    <Content Include="Views\HandAppeal\Index.cshtml" />
+    <Content Include="Views\HandAppeal\_Edit.cshtml" />
+    <Content Include="Views\Worker\_Create.cshtml" />
+    <Content Include="Views\Worker\_Edit.cshtml" />
+    <Content Include="Views\Worker\Index.cshtml" />
+    <Content Include="Views\PassedEvent\_Create.cshtml" />
+    <Content Include="Views\PassedEvent\_Edit.cshtml" />
+    <Content Include="Views\PassedEvent\Index.cshtml" />
+    <Content Include="Views\MO\_Create.cshtml" />
+    <Content Include="Views\MO\_Edit.cshtml" />
+    <Content Include="Views\MO\Index.cshtml" />
+    <Content Include="Views\Organization\_Create.cshtml" />
+    <Content Include="Views\Organization\_Edit.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

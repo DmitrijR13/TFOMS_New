@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             sourceIncome.Code = code;
             sourceIncome.Name = name;
-            sourceIncome.UpdatedDate = DateTimeOffset.Now;
+            sourceIncome.UpdatedDate = DateTime.Now;
 
             return sourceIncome;
         }

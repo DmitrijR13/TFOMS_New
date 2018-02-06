@@ -1,0 +1,79 @@
+﻿@model FPCS.Web.Admin.Models.Worker.WorkerEditModel
+
+<div class="row-fluid">
+    <div class="span12 ">
+        <div class="row-fluid">
+            <div class="span12 ">
+
+                @using (Html.BeginForm("_Edit", "Worker", FormMethod.Post, new { id = "editWorkerForm", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <h3 class="lighter block green">Редактирование данных</h3>
+                        </div>
+                    </div>
+
+                        <div class="controls">
+                            @Html.ValidationSummary(true)
+                        </div>
+
+                        @Html.HiddenFor(x => x.Id);
+
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Surname, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Surname, new { placeholder = Html.DisplayNameFor(x => x.Surname), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.Surname)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Name, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Name, new { placeholder = Html.DisplayNameFor(x => x.Name), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.SecondName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.SecondName, new { placeholder = Html.DisplayNameFor(x => x.SecondName), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.SecondName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.Phone, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(x => x.Phone, new { placeholder = Html.DisplayNameFor(x => x.Phone), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(x => x.IsHead, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.CheckBoxFor(x => x.IsHead, new { placeholder = Html.DisplayNameFor(x => x.IsHead), @class = "span9" })
+                            @Html.ValidationMessageFor(m => m.IsHead)
+                        </div>
+                    </div>
+                   
+                    <div class="form-actions">
+                        <button class="btn btn-success editWorkerSend" type="button">
+                            <i class="icon-ok bigger-110"></i>
+                            Сохранить
+                        </button>
+                        <button onclick="javascript:fpcs.closeDialog()" class="btn btn-info" type="button">
+                            <i class="icon-reply bigger-110"></i>
+                            Отменить
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@Html.Script(Scripts.Render("~/bundles/jqueryval"))

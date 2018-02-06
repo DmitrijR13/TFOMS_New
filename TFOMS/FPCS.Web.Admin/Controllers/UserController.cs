@@ -268,7 +268,7 @@ namespace FPCS.Web.Admin.Controllers
                         dbEntity.Email = model.Email.TrimAndReduce();
                         dbEntity.Login = model.Login;
                         dbEntity.Password = model.Password;
-                        dbEntity.UpdatedDate = DateTimeOffset.Now;
+                        dbEntity.UpdatedDate = DateTime.Now;
 
                         repo.Update(dbEntity);
 

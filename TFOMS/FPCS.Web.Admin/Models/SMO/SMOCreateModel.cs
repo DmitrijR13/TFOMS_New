@@ -50,7 +50,7 @@ namespace FPCS.Web.Admin.Models.SMO
         /// </summary>
         [MaxLength(150)]
         [Required]
-        [Display(Name = "Фактисекий адрес")]
+        [Display(Name = "Фактический адрес")]
         public String FactAddress { get; set; }
 
         /// <summary>
@@ -75,5 +75,33 @@ namespace FPCS.Web.Admin.Models.SMO
         [Required]
         [Display(Name = "Сведения о лицензии")]
         public String LicenseInfo { get; set; }
+
+        /// <summary>
+        /// Фамилия руководителя
+        /// </summary>
+        [Display(Name = "Фамилия руководителя")]
+
+        public String HeadSurname { get; set; }
+
+        /// <summary>
+        /// Имя руководителя
+        /// </summary>
+        [Display(Name = "Имя руководителя")]
+
+        public String HeadName { get; set; }
+
+        /// <summary>
+        /// Отчество руководителя
+        /// </summary>
+        [Display(Name = "Отчество руководителя")]
+
+        public String HeadSecondName { get; set; }
+
+        /// <summary>
+        /// Должность руководителя
+        /// </summary>
+        [Display(Name = "Должность руководителя")]
+
+        public String HeadPosition { get; set; }
     }
 }

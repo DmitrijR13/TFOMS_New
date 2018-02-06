@@ -21,8 +21,8 @@ namespace FPCS.Data.Migrations
                         filialdirector = c.String(nullable: false, maxLength: 150),
                         licenseinfo = c.String(maxLength: 100),
                         IsDeleted = c.Boolean(nullable: false),
-                        CreatedDate = c.DateTimeOffset(nullable: false, precision: 7),
-                        UpdatedDate = c.DateTimeOffset(nullable: false, precision: 7),
+                        CreatedDate = c.DateTime(nullable: false, precision: 7),
+                        UpdatedDate = c.DateTime(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.smoid);
             

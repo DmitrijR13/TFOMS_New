@@ -78,6 +78,38 @@ namespace FPCS.Data.Entities
         [Required]
         public String LicenseInfo { get; set; }
 
+        /// <summary>
+        /// Фамилия руководителя
+        /// </summary>
+        [Column("head_surname")]
+        [MaxLength(150)]
+        [Required]
+        public String HeadSurname { get; set; }
+
+        /// <summary>
+        /// Имя руководителя
+        /// </summary>
+        [Column("head_name")]
+        [MaxLength(150)]
+        [Required]
+        public String HeadName { get; set; }
+
+        /// <summary>
+        /// Отчетсво руководителя
+        /// </summary>
+        [Column("head_second_name")]
+        [MaxLength(150)]
+        [Required]
+        public String HeadSecondName { get; set; }
+
+        /// <summary>
+        /// Должность руководителя
+        /// </summary>
+        [Column("head_position")]
+        [MaxLength(150)]
+        [Required]
+        public String HeadPosition { get; set; }
+
         public virtual ICollection<User> Users { get; set; }
 
         public virtual ICollection<JournalAppeal> JournalAppeals { get; set; }

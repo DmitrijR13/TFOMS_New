@@ -155,7 +155,7 @@ namespace FPCS.Web.Admin.Controllers
                         var repo = uow.GetRepo<ISMORepo>();
 
                         var dbEntity = repo.Add(model.SmoCode, model.KPP, model.FullName, model.ShortName, model.FactAddress,
-                            model.Director, model.FilialDirector, model.LicenseInfo);
+                            model.Director, model.FilialDirector, model.LicenseInfo, model.HeadSurname, model.HeadName, model.HeadSecondName, model.HeadPosition);
 
                         uow.Commit();
 
@@ -191,7 +191,11 @@ namespace FPCS.Web.Admin.Controllers
                     ShortName = dbEntity.ShortName,
                     FullName = dbEntity.FullName,
                     KPP = dbEntity.KPP,
-                    SmoCode = dbEntity.SmoCode
+                    SmoCode = dbEntity.SmoCode,
+                    HeadSurname = dbEntity.HeadSurname,
+                    HeadName = dbEntity.HeadName,
+                    HeadSecondName = dbEntity.HeadSecondName,
+                    HeadPosition = dbEntity.HeadPosition
                 };
                 return PartialView(model);
             }
@@ -221,6 +225,10 @@ namespace FPCS.Web.Admin.Controllers
                         dbEntity.ShortName = model.ShortName;
                         dbEntity.SmoCode = model.SmoCode;
                         dbEntity.UpdatedDate = DateTime.Now;
+                        dbEntity.HeadSurname = model.HeadSurname;
+                        dbEntity.HeadName = model.HeadName;
+                        dbEntity.HeadSecondName = model.HeadSecondName;
+                        dbEntity.HeadPosition = model.HeadPosition;
 
                         repo.Update(dbEntity);
 

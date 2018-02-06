@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             takingAppealLine.Code = code;
             takingAppealLine.Name = name;
-            takingAppealLine.UpdatedDate = DateTimeOffset.Now;
+            takingAppealLine.UpdatedDate = DateTime.Now;
 
             return takingAppealLine;
         }

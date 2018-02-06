@@ -55,7 +55,7 @@ namespace FPCS.Data.Repo.Impl
 
             typeOfAddressing.Code = code;
             typeOfAddressing.Name = name;
-            typeOfAddressing.UpdatedDate = DateTimeOffset.Now;
+            typeOfAddressing.UpdatedDate = DateTime.Now;
 
             return typeOfAddressing;
         }

@@ -21,7 +21,7 @@ namespace FPCS.Data.Repo.Impl
         public override void Remove(User entity)
         {
             entity.IsDeleted = true;
-            entity.UpdatedDate = DateTimeOffset.Now;
+            entity.UpdatedDate = DateTime.Now;
         }
 
         #endregion override methods
@@ -49,8 +49,8 @@ namespace FPCS.Data.Repo.Impl
                 LastName = lastName,
                 FullName = lastName + " " + firstName,
                 MiddleInitial = middleInitial,
-                CreatedDate = DateTimeOffset.Now,
-                UpdatedDate = DateTimeOffset.Now,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
                 IsDeleted = false,
                 IsLocked = false,
                 Role = role,
@@ -68,7 +68,7 @@ namespace FPCS.Data.Repo.Impl
             dbEntity.Login = login;
             dbEntity.IsLocked = isLocked;
             if (!String.IsNullOrEmpty(password)) dbEntity.Password = password;
-            dbEntity.UpdatedDate = DateTimeOffset.Now;
+            dbEntity.UpdatedDate = DateTime.Now;
             dbEntity.FirstName = firstName;
             dbEntity.LastName = lastName;
             dbEntity.MiddleInitial = middleInitial;

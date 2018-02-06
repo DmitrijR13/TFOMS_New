@@ -23,8 +23,8 @@ namespace FPCS.Data.Migrations
                         islocked = c.Boolean(nullable: false),
                         role = c.Int(nullable: false),
                         isdeleted = c.Boolean(nullable: false),
-                        createddate = c.DateTimeOffset(nullable: false, precision: 7),
-                        updateddate = c.DateTimeOffset(nullable: false, precision: 7),
+                        createddate = c.DateTime(nullable: false, precision: 7),
+                        updateddate = c.DateTime(nullable: false, precision: 7),
                         smoregnum = c.String(maxLength: 3),
                     })
                 .PrimaryKey(t => t.dbuserid);

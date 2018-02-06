@@ -39,7 +39,7 @@
 		fpcs.jqGrid.initGridResize();
 		fpcs.jqGrid.initFilterToolbar("AppealResult");
 		if (fpcs.getIsAdmin()) {
-		    fpcs.jqGrid.initNavButtons("/AppealResult/DeleteAll", sourceIncome.showCreateDialog, "Добавить новую запись");
+		    fpcs.jqGrid.initNavButtons("/AppealResult/DeleteAll", appealResult.showCreateDialog, "Добавить новую запись");
 		} else {
 		    fpcs.jqGrid.initNavButtons(null, null, "");
 		}
