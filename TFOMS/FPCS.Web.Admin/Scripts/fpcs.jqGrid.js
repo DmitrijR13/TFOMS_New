@@ -7,9 +7,11 @@
 	gridWrapper: "",
 	gridSelector: "",
 	pagerSelector: "",
+	//pagerSelectorTop: "",
 	wrapper: null,
 	grid: null,
 	pager: null,
+	//pagerTop: null,
 	gridComplete: null,
 	postData: null,
 	toppager: true,
@@ -18,10 +20,15 @@
 		gridWrapper = options["gridWrapper"];
 		gridSelector = options["gridSelector"];
 		pagerSelector = options["pagerSelector"];
+		//pagerSelectorTop = options["pagerSelectorTop"];
+
 		postData = options["postData"];
 		wrapper = jQuery(gridWrapper);
 		grid = jQuery(gridSelector);
 		pager = jQuery(pagerSelector);
+		//pagerTop = jQuery(pagerSelectorTop);
+        
+
 		emptyMsgDiv = $("<div>No records were found</div>");
 		lastSel = '';
 		localStorageId = options["localStorageId"];
@@ -66,6 +73,7 @@
 			shrinkToFit: true,
 
 			pager: pager,
+			//pagerTop: pagerTop,
 			toppager: toppager,
 			rowNum: rowNum,
 			rowList: [10, 20, 50, 100, 1000],
@@ -132,7 +140,6 @@
 			gridComplete:
 				function () {
 				    var ids = grid.jqGrid('getDataIDs');
-				    debugger;
 				    
 					for (var i = 0; i < ids.length; i++) {
 						var cl = ids[i];
@@ -289,6 +296,22 @@
 		}
 	},
 
+	initNavButtonsTop: function (addEntityFunc, addEntityFuncTitle) {
+	    var html = "<div id='pagerTop'>"
+	    html += "</div>";
+	    $("#gbox_gridTable").prepend(html);
+
+
+	    if (addEntityFunc != null) {
+	        var $btn = $('<button/>', {
+	            type: 'button',
+	            text: addEntityFuncTitle != undefined ? addEntityFuncTitle : "Добавить новую запись",
+	            id: 'btn_refresh'
+	        }).click(addEntityFunc);
+	        $("#pagerTop").prepend($btn);
+	    }
+	},
+
 	initNavSendEmailButton: function (addEntityFunc, addEntityFuncTitle) {
 		if (addEntityFunc != null) {
 			grid.jqGrid('navButtonAdd', pagerSelector, {
@@ -373,7 +396,6 @@
 	saveLocalStorage: function (localStorageId) {
 		var gridInfo = {};
 
-		debugger;
 		gridInfo.url = grid.jqGrid('getGridParam', 'url');
 		gridInfo.sortname = grid.jqGrid('getGridParam', 'sortname');
 		gridInfo.sortorder = grid.jqGrid('getGridParam', 'sortorder');

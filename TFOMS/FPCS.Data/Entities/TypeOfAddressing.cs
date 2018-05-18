@@ -21,6 +21,11 @@ namespace FPCS.Data.Entities
 		/// </summary>
 		public String Name { get; set; }
 
-		public virtual ICollection<JournalAppeal> JournalAppeals { get; set; }
+        /// <summary>
+        /// Расчитывать дату окончания
+        /// </summary>
+        public Boolean IsUpdateDateEnd { get; set; }
+
+        public virtual ICollection<JournalAppeal> JournalAppeals { get; set; }
 	}
 }

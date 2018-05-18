@@ -43,6 +43,12 @@ namespace FPCS.Web.Admin.Controllers
             using (var uow = UnityManager.Resolve<IUnitOfWork>())
             {
                 var repo = uow.GetRepo<IJournalAppealRepo>();
+                var handAppealRepo = uow.GetRepo<IHandAppealRepo>();
+                var organizationRepo = uow.GetRepo<IOrganizationRepo>();
+
+                var organizations = organizationRepo.GetAll().ToList();
+                //var handAppeals = handAppealRepo.GetAll().ToList();
+                var handAppealsIds = handAppealRepo.GetAll().Select(x => x.JournalAppealId).ToList();
 
                 string userName = User.Login;
                 var dbUserRepo = uow.GetRepo<IDbUserRepo>();
@@ -57,10 +63,12 @@ namespace FPCS.Web.Admin.Controllers
                 
                 var dateFrom = DateTime.Today.AddDays(-30);
 
+               
                 var journalAppeal = repo.GetAll()
                     //.Where(x => x.CreatedDate >= dateFrom)
                     .Where(x => x.Date.HasValue && x.SourceIncomeId.HasValue && x.TypeOfAddressingId.HasValue && x.WayOfAddressingId.HasValue
-                        && x.ThemeAppealCitizensId.HasValue && x.AppealOrganizationId.HasValue && x.TakingAppealLineId.HasValue && !String.IsNullOrEmpty(x.AcceptedBy)
+                        && x.ThemeAppealCitizensId.HasValue && x.AppealOrganizationId.HasValue && x.TakingAppealLineId.HasValue 
+                        && ((!String.IsNullOrEmpty(x.AcceptedBy) && handAppealsIds.Contains(x.JournalAppealId)) || !handAppealsIds.Contains(x.JournalAppealId))
                             && !String.IsNullOrEmpty(x.AppealOrganizationCode) && x.AppealPlanEndDate.HasValue)
                     .Where(x => (dateFromFilter.HasValue ? x.Date >= dateFromFilter : x.JournalAppealId != 0) 
                     && (dateToFilter.HasValue ? x.Date <= dateToFilter : x.JournalAppealId != 0) 
@@ -77,8 +85,50 @@ namespace FPCS.Web.Admin.Controllers
                         x.AppealFactEndDate,
                         ResultName = x.AppealResult != null ? x.AppealResult.Name : "",
                         AppealOrganizationCode = x.SMO.ShortName,
-                        x.CreatedDate
-                    })
+                        x.CreatedDate,
+                        ReceivedTreatmentPerson = x.ReceivedTreatmentPersonSurname + " " + x.ReceivedTreatmentPersonName + " " + x.ReceivedTreatmentPersonSecondName,
+                        Applicant = x.ApplicantSurname + " " + x.ApplicantName + " " + x.ApplicantSecondName
+                    }).AsEnumerable()
+                    .Select(x =>
+                    {
+                        string appealCode = String.Empty;
+                        string appealName = String.Empty;
+                        string organizationsName = String.Empty;
+                        if (handAppealsIds.Contains(x.Id))
+                        {
+
+                            var handAppeal = handAppealRepo.Get(x.Id);
+
+                            if (handAppeal != null)
+                            {
+                                appealCode = handAppeal.PassedEvent != null ? handAppeal.PassedEvent.Code : "";
+                                appealName = handAppeal.WayOfAddressing != null ? handAppeal.WayOfAddressing.Name : "";
+
+                                organizationsName = String.Join(",", organizations.Where(z => handAppeal.OrganizationId.Split(',').ToList().Contains(z.OrganizationId.ToString())).Select(z => z.Name).ToList());
+                            }
+                        }
+                        return new
+                        {
+                            x.Id,
+                            x.AppealUniqueNumber,
+                            x.Date,
+                            x.AppealTheme,
+                            x.AcceptedBy,
+                            x.Responsible,
+                            x.AppealPlanEndDate,
+                            x.AppealFactEndDate,
+                            x.ResultName,
+                            x.AppealOrganizationCode,
+                            x.CreatedDate,
+                            x.ReceivedTreatmentPerson,
+                            x.Applicant,
+                            AppealCode = appealCode,
+                            AppealName = appealName,
+                            OrganizationsName = organizationsName
+                        };
+                    }
+                    
+                    )
                     .ToList();
 
                 var engine = new GridDynamicEngine(options, journalAppealListOptions);
@@ -93,10 +143,14 @@ namespace FPCS.Web.Admin.Controllers
                     AppealPlanEndDate = x.AppealPlanEndDate.Value.Date.ToString("dd/MM/yyyy"),
                     AppealFactEndDate = x.AppealFactEndDate.HasValue ? x.AppealFactEndDate.Value.Date.ToString("dd/MM/yyyy") : String.Empty,
                     ResultName = x.ResultName,
-                    AppealOrganizationCode = x.AppealOrganizationCode
+                    AppealOrganizationCode = x.AppealOrganizationCode,
+                    AppealCode = x.AppealCode,
+                    AppealName = x.AppealName,
+                    ReceivedTreatmentPerson = x.ReceivedTreatmentPerson,
+                    Applicant = x.Applicant,
+                    OrganizationsName = x.OrganizationsName
                 })
                 .ToList();
-
 
                 Int32 totalCount = resultTemp.Count();
 
@@ -112,7 +166,12 @@ namespace FPCS.Web.Admin.Controllers
                     AppealPlanEndDate = x.AppealPlanEndDate,
                     AppealFactEndDate = x.AppealFactEndDate,
                     ResultName = x.ResultName,
-                    AppealOrganizationCode = x.AppealOrganizationCode
+                    AppealOrganizationCode = x.AppealOrganizationCode,
+                    ReceivedTreatmentPerson = x.ReceivedTreatmentPerson,
+                    Applicant = x.Applicant,
+                    AppealCode = x.AppealCode,
+                    AppealName = x.AppealName,
+                    OrganizationsName = x.OrganizationsName
                 });
 
 

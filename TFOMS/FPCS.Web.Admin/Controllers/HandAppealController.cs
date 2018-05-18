@@ -45,6 +45,34 @@ namespace FPCS.Web.Admin.Controllers
 
     public class HandAppealController : BaseController
     {
+        public JsonResult IsUpdateDateEnd(int id)
+        {
+            using (var uow = UnityManager.Resolve<IUnitOfWork>())
+            {
+                var repo = uow.GetRepo<ITypeOfAddressingRepo>();
+
+                var typeOfAddressing = repo.Get(id);
+                if(typeOfAddressing != null)
+                {
+                    var data = new 
+                    {
+                        Obj = typeOfAddressing.IsUpdateDateEnd
+                    };
+
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var data = new
+                    {
+                        Obj = false
+                    };
+
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
         public ActionResult Index(string message = "")
         {
             HandAppealDateAppealModel model = new HandAppealDateAppealModel();
@@ -59,6 +87,11 @@ namespace FPCS.Web.Admin.Controllers
             using (var uow = UnityManager.Resolve<IUnitOfWork>())
             {
                 var repo = uow.GetRepo<IHandAppealRepo>();
+                var organizationRepo = uow.GetRepo<IOrganizationRepo>();
+
+                var organizations = organizationRepo.GetAll().ToList();
+
+                var handAppealr = repo.GetAll().ToList();
 
                 string userName = User.Login;
                 var dbUserRepo = uow.GetRepo<IDbUserRepo>();
@@ -71,29 +104,56 @@ namespace FPCS.Web.Admin.Controllers
                 }
 
                 var handAppeal = repo.GetAll()
-                    .Where(x => (dateFromFilter.HasValue ? x.Date >= dateFromFilter : x.JournalAppealId != 0)
-                    && (dateToFilter.HasValue ? x.Date <= dateToFilter : x.JournalAppealId != 0)
-                    && (smo != 0 ? x.SMO.SmoId == smo : 1 == 1))
+                   .Where(x => (dateFromFilter.HasValue ? x.Date >= dateFromFilter : x.JournalAppealId != 0)
+                   && (dateToFilter.HasValue ? x.Date <= dateToFilter : x.JournalAppealId != 0)
+                   && (smo != 0 ? x.SMO.SmoId == smo : 1 == 1))
+                   .Select(x => new
+                   {
+                       Id = x.JournalAppealId,
+                       x.AppealUniqueNumber,
+                       x.Date,
+                       AppealTheme = x.ThemeAppealCitizens.Name,
+                       AcceptedBy = x.Worker != null ? x.Worker.Surname + " " + x.Worker.Name + " " + x.Worker.SecondName : "",
+                       x.Responsible,
+                       x.AppealPlanEndDate,
+                       x.AppealFactEndDate,
+                       ResultName = x.AppealResult != null ? x.AppealResult.Name : "",
+                       AppealOrganizationCode = x.SMO.ShortName,
+                       x.AppealFileName,
+                       ReceivedTreatmentPerson = x.ReceivedTreatmentPersonSurname + " " + x.ReceivedTreatmentPersonName + " " + x.ReceivedTreatmentPersonSecondName,
+                       Applicant = x.ApplicantSurname + " " + x.ApplicantName + " " + x.ApplicantSecondName,
+                       x.TypeOfAddressingId,
+                       x.WayOfAddressingId,
+                       x.ThemeAppealCitizensId,
+                       x.AnswerFileName,
+                       AppealCode = x.ThemeAppealCitizens != null ? x.ThemeAppealCitizens.Code : "",
+                       AppealName = x.WayOfAddressing != null ? x.WayOfAddressing.Name : "",
+                       x.OrganizationId
+                   }).AsEnumerable()
                     .Select(x => new
                     {
-                        Id = x.JournalAppealId,
+                        x.Id,
                         x.AppealUniqueNumber,
                         x.Date,
-                        AppealTheme = x.ThemeAppealCitizens.Name,
-                        AcceptedBy = x.Worker != null ? x.Worker.Surname + " " + x.Worker.Name + " " + x.Worker.SecondName : "",
+                        x.AppealTheme,
+                        x.AcceptedBy,
                         x.Responsible,
                         x.AppealPlanEndDate,
                         x.AppealFactEndDate,
-                        ResultName = x.AppealResult != null ? x.AppealResult.Name : "",
-                        AppealOrganizationCode = x.SMO.ShortName,
+                        x.ResultName,
+                        x.AppealOrganizationCode,
                         x.AppealFileName,
-                        ReceivedTreatmentPerson = x.ReceivedTreatmentPersonSurname + " " + x.ReceivedTreatmentPersonName + " " + x.ReceivedTreatmentPersonSecondName,
+                        x.ReceivedTreatmentPerson,
+                        x.Applicant,
                         x.TypeOfAddressingId,
                         x.WayOfAddressingId,
                         x.ThemeAppealCitizensId,
-                        x.AnswerFileName
+                        x.AnswerFileName,
+                        x.AppealCode,
+                        x.AppealName,
+                        OrganizationsName = String.Join(",", organizations.Where(y => x.OrganizationId.Split(',').ToList().Contains(y.OrganizationId.ToString())).Select(y => y.Name).ToList())
                     })
-                    .ToList();
+                   .ToList();
 
                 var engine = new GridDynamicEngine(options, handAppealListOptions);
                 var resultTemp = engine.ApplySort(engine.ApplyFilter(handAppeal.AsQueryable())).Select(x => new HandAppealIndexModel
@@ -109,13 +169,17 @@ namespace FPCS.Web.Admin.Controllers
                     AppealOrganizationCode = x.AppealOrganizationCode,
                     AppealFileName = x.AppealFileName,
                     ReceivedTreatmentPerson = x.ReceivedTreatmentPerson,
+                    Applicant = x.Applicant,
                     TypeOfAddressingId = x.TypeOfAddressingId,
                     WayOfAddressingId = x.WayOfAddressingId,
                     ThemeAppealCitizensId = x.ThemeAppealCitizensId,
-                    AnswerFileName = x.AnswerFileName
+                    AnswerFileName = x.AnswerFileName,
+                    AppealCode = x.AppealCode,
+                    AppealName = x.AppealName,
+                    OrganizationsName = x.OrganizationsName
                 })
                 .ToList();
-
+                
 
                 Int32 totalCount = resultTemp.Count();
 
@@ -132,11 +196,17 @@ namespace FPCS.Web.Admin.Controllers
                     AppealOrganizationCode = x.AppealOrganizationCode,
                     AppealFileName = x.AppealFileName,
                     ReceivedTreatmentPerson = x.ReceivedTreatmentPerson,
+                    Applicant = x.Applicant,
                     TypeOfAddressingId = x.TypeOfAddressingId,
                     WayOfAddressingId = x.WayOfAddressingId,
                     ThemeAppealCitizensId = x.ThemeAppealCitizensId,
-                    AnswerFileName = x.AnswerFileName
+                    AnswerFileName = x.AnswerFileName,
+                    AppealCode = x.AppealCode,
+                    AppealName = x.AppealName,
+                    OrganizationsName = x.OrganizationsName
                 });
+
+               
 
                 return Json(result);
             }
@@ -576,31 +646,27 @@ namespace FPCS.Web.Admin.Controllers
                         var smo = repo.Get(model.SMOOrganizationId.Value);
                         if(smo != null)
                         {
-                            letter.ReplaceText("<SMOHeadPosition>", String.IsNullOrEmpty(smo.HeadPosition) ? "" : smo.HeadPosition);
-                            String smoHeadFio = String.Empty;
-                            smoHeadFio += String.IsNullOrEmpty(smo.HeadSurname) ? "" : smo.HeadSurname.Trim();
-                            smoHeadFio += String.IsNullOrEmpty(smo.HeadName) ? "" : " " + smo.HeadName.Trim().Substring(0, 1) + ".";
-                            smoHeadFio += String.IsNullOrEmpty(smo.HeadSecondName) ? "" : " " + smo.HeadSecondName.Trim().Substring(0, 1) + ".";
+                            letter.ReplaceText("<SMOHeadPosition>", "Руководителю");
 
                             String smoHeadIo = String.Empty;
                             smoHeadIo += String.IsNullOrEmpty(smo.HeadName) ? "" : " " + smo.HeadName.Trim();
                             smoHeadIo += String.IsNullOrEmpty(smo.HeadSecondName) ? "" : " " + smo.HeadSecondName.Trim();
 
-                            letter.ReplaceText("<SMOHeadFIO>", smoHeadFio);
+                            letter.ReplaceText("<SMO>", smo.FullName);
                             letter.ReplaceText("<SMOHeadIO>", smoHeadIo);
 
                         }
                         else
                         {
                             letter.ReplaceText("<SMOHeadPosition>", "");
-                            letter.ReplaceText("<SMOHeadFIO>", "");
+                            letter.ReplaceText("<SMO>", "");
                             letter.ReplaceText("<SMOHeadIO>", "");
                         }
                     }
                     else
                     {
                         letter.ReplaceText("<SMOHeadPosition>", "");
-                        letter.ReplaceText("<SMOHeadFIO>", "");
+                        letter.ReplaceText("<SMO>", "");
                         letter.ReplaceText("<SMOHeadIO>", "");
                     }
 

@@ -79,6 +79,75 @@ namespace FPCS.Web.Admin.Controllers
             return Json(new { success = true, fName }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public void Report3(DateTime? dateFromPost3, DateTime? dateToPost3, Int64? smoIdPost3)
+        {
+            string templatePath = @"C:\Temp\TFOMSReport3.xlsx";
+            string path = @"C:\Temp\TFOMSReport" + DateTime.Now.GetHashCode() + ".xlsx";
+            var book = new XLWorkbook(templatePath);
+            book.SaveAs(path);
+            book = new XLWorkbook(path);
+            book.Worksheet(1).Row(3).Cell(1).Value = "В период с " +
+                (dateFromPost3.HasValue ? dateFromPost3.Value.ToShortDateString() : "...") + " по " + 
+                (dateToPost3.HasValue ? dateToPost3.Value.ToShortDateString() : "...");
+            using (var uow = UnityManager.Resolve<IUnitOfWork>())
+            {
+                var repo = uow.GetRepo<ISMORepo>();
+                if (smoIdPost3.HasValue)
+                {
+                    var smoName = repo.Get(smoIdPost3.Value).FullName;
+                    book.Worksheet(1).Row(4).Cell(3).Value = smoName;
+                }
+                else
+                {
+                    book.Worksheet(1).Row(4).Cell(3).Value = "Все СМО";
+                }
+            }
+            int row = 8;
+
+            using (var uow = UnityManager.Resolve<IUnitOfWork>())
+            {
+                var repo = uow.GetRepo<IHandAppealRepo>();
+                var handAppeals = repo.GetAll().Where(x => !dateFromPost3.HasValue || (x.Date >= dateFromPost3.Value))
+                    .Where(x => !dateToPost3.HasValue || (x.Date <= dateToPost3.Value))
+                    .Where(x => !smoIdPost3.HasValue || (x.SMOId == smoIdPost3.Value))
+                    .Select(x => new
+                    {
+                        TypeOfAddressing = x.TypeOfAddressing != null ? x.TypeOfAddressing.Name : "",
+                        WayOfAddressing = x.WayOfAddressing != null ? x.WayOfAddressing.Name : "",
+                        ThemeAppealCitizens = x.ThemeAppealCitizens != null ? x.ThemeAppealCitizens.Name : "",
+                        Complaint = x.Complaint != null ? x.Complaint.Name : "",
+                        Worker = x.Worker != null ? x.Worker.Surname + " " + x.Worker.Name + " " + x.Worker.SecondName : "",
+                        AppealResult = x.AppealResult != null ? x.AppealResult.Name : ""
+                    });
+
+                foreach (var handAppeal in handAppeals)
+                {
+                    book.Worksheet(1).Row(row).Cell(1).Value = handAppeal.TypeOfAddressing;
+                    book.Worksheet(1).Row(row).Cell(2).Value = handAppeal.WayOfAddressing;
+                    book.Worksheet(1).Row(row).Cell(3).Value = handAppeal.ThemeAppealCitizens;
+                    book.Worksheet(1).Row(row).Cell(4).Value = handAppeal.Complaint;
+                    book.Worksheet(1).Row(row).Cell(5).Value = handAppeal.Worker;
+                    book.Worksheet(1).Row(row).Cell(6).Value = handAppeal.AppealResult;
+
+                    row++;
+
+                }
+            }
+
+          
+            book.Save();
+            Response.Clear();
+            Response.ClearHeaders();
+            byte[] bts = System.IO.File.ReadAllBytes(path);
+            Response.AddHeader("Content-Type", "Application/octet-stream");
+            Response.AddHeader("Content-Length", bts.Length.ToString());
+            Response.AddHeader("Content-Disposition", "attachment; filename=TFOMSTerfond_" + DateTime.Now.ToShortDateString() + ".xlsx");
+            Response.BinaryWrite(bts);
+            Response.Flush();
+            Response.End();
+            System.IO.File.Delete(path);
+        }
 
         [HttpPost]
         public void Report2(DateTime? dateFromPost2, DateTime? dateToPost2, Int64? smoIdPost2)

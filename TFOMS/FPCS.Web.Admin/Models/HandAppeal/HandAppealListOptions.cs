@@ -34,6 +34,36 @@ namespace FPCS.Web.Admin.Models.HandAppeal
         [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
         public String Responsible { get; set; }
 
+        /// <summary>
+        /// Код обращения
+        /// </summary>
+        [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
+        public String AppealCode { get; set; }
+
+        /// <summary>
+        /// Вид обращения
+        /// </summary>
+        [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
+        public String AppealName { get; set; }
+
+        /// <summary>
+        /// Заявитель
+        /// </summary>
+        [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
+        public String ReceivedTreatmentPerson { get; set; }
+
+        /// <summary>
+        /// Застрахованное лицо
+        /// </summary>
+        [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
+        public String Applicant { get; set; }
+
+        /// <summary>
+        /// Направивший орган
+        /// </summary>
+        [GridProperty(ExtensionType.All, true, FilterOperation.Contains)]
+        public String OrganizationsName { get; set; }
+
         ///// <summary>
         ///// Дата окончания срока рассмотрения обращения
         ///// </summary>

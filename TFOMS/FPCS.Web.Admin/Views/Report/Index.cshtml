@@ -84,6 +84,23 @@
 							</div>
 							<div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Жалобы и причины</div>
 						</td>
+                        <td>
+                            <div class="dictionary-image-button" style="text-align: center;">
+                                <span class="dictionary-image-button">
+                                    @*@using (Html.BeginForm("Report2", "Report", new { smoId = @Model.SmoId, dateFrom = Model.DateFrom, dateTo = Model.DateTo }))*@
+                                    @using (Html.BeginForm("Report3", "Report"))
+                                    {
+                                        @Html.Hidden("dateFromPost3", Model.DateFromTemp)
+                                        @Html.Hidden("dateToPost3", Model.DateToTemp)
+                                        @Html.Hidden("smoIdPost3", Model.SmoId)
+                                        <button name="button" value="ActionOne" class="button" style="width: 100px; height: 100px;" title="Отчет по терфонду">
+                                            <img src="../../../Content/img/Report.png" />
+                                        </button>
+                                    }
+                                </span>
+                            </div>
+                            <div class="text dictionary-image-button-tittle" style="text-align: center; width: 100px; height: 50px;">Отчет по терфонду</div>
+                        </td>
 					</tr>
 				</table>
 
@@ -118,18 +135,21 @@
 	        var tempVal = $("#txtDateFrom").val();
 	        $('#dateFromPost').val(tempVal);
 	        $('#dateFromPost2').val(tempVal);
+	        $('#dateFromPost3').val(tempVal);
 	    });
 
 	    $("#txtDateTo").change(function () {
 	        var tempVal = $("#txtDateTo").val();
 	        $('#dateToPost').val(tempVal);
 	        $('#dateToPost2').val(tempVal);
+	        $('#dateToPost3').val(tempVal);
 	    });
 
 	    $("#ddlSmo").change(function () {
 	        var tempVal = $("#ddlSmo").val();
 	        $('#smoIdPost').val(tempVal);
 	        $('#smoIdPost2').val(tempVal);
+	        $('#smoIdPost3').val(tempVal);
 	    });
 	});
 </script> 

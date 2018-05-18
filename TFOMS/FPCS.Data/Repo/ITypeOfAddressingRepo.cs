@@ -14,7 +14,7 @@ namespace FPCS.Data.Repo
         /// <param name="code">Код новой записи</param>
         /// <param name="name">Наименование новой записи</param>
         /// <returns></returns>
-        TypeOfAddressing Add(String code, String name);
+        TypeOfAddressing Add(String code, String name, Boolean isUpadateDate);
 
         /// <summary>
         /// Редактирование источника поступления
@@ -23,6 +23,6 @@ namespace FPCS.Data.Repo
         /// <param name="code">Код записи</param>
         /// <param name="name">Наименование записи</param>
         /// <returns></returns>
-        TypeOfAddressing Update(Int64 typeOfAddressingId, String code, String name);
+        TypeOfAddressing Update(Int64 typeOfAddressingId, String code, String name, Boolean isUpadateDate);
     }
 }

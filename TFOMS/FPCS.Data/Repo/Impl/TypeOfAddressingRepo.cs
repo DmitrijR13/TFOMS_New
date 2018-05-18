@@ -26,7 +26,7 @@ namespace FPCS.Data.Repo.Impl
         /// <param name="code">Код новой записи</param>
         /// <param name="name">Наименование новой записи</param>
         /// <returns></returns>
-        public TypeOfAddressing Add(String code, String name)
+        public TypeOfAddressing Add(String code, String name, Boolean isUpadateDate)
         {
             var typeOfAddressing =
                 Add(
@@ -34,6 +34,7 @@ namespace FPCS.Data.Repo.Impl
                 {
                     Code = code,
                     Name = name,
+                    IsUpdateDateEnd = isUpadateDate,
                     UpdatedDate = DateTime.Now,
                     CreatedDate = DateTime.Now
                 });
@@ -48,13 +49,14 @@ namespace FPCS.Data.Repo.Impl
         /// <param name="code">Код записи</param>
         /// <param name="name">Наименование записи</param>
         /// <returns></returns>
-        public TypeOfAddressing Update(Int64 typeOfAddressingId, String code, String name)
+        public TypeOfAddressing Update(Int64 typeOfAddressingId, String code, String name, Boolean isUpadateDate)
         {
             var typeOfAddressing = this.Get(typeOfAddressingId);
             if (typeOfAddressing == null) throw new NotFoundEntityException("Запись не найдена");
 
             typeOfAddressing.Code = code;
             typeOfAddressing.Name = name;
+            typeOfAddressing.IsUpdateDateEnd = isUpadateDate;
             typeOfAddressing.UpdatedDate = DateTime.Now;
 
             return typeOfAddressing;

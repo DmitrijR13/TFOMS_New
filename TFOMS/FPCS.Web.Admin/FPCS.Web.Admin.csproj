@@ -330,6 +330,10 @@
     <Compile Include="Models\HandAppeal\HandAppelDateAppealModel.cs" />
     <Compile Include="Models\JournalAppeal\FileUploadModel.cs" />
     <Compile Include="Models\JournalAppeal\JournalAppelDateAppealModel.cs" />
+    <Compile Include="Models\TypeOfAddressing\TypeOfAddressingEditModel.cs" />
+    <Compile Include="Models\TypeOfAddressing\TypeOfAddressingIndexModel.cs" />
+    <Compile Include="Models\TypeOfAddressing\TypeOfAddressingListOptions.cs" />
+    <Compile Include="Models\TypeOfAddressing\TypeOfAddressingCreateModel.cs" />
     <Compile Include="Models\Worker\WorkerCreateModel.cs" />
     <Compile Include="Models\Worker\WorkerEditModel.cs" />
     <Compile Include="Models\Worker\WorkerIndexModel.cs" />

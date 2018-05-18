@@ -319,6 +319,10 @@
     <Compile Include="Migrations\201712221400446_2017122200.Designer.cs">
       <DependentUpon>201712221400446_2017122200.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804230850103_2018042300.cs" />
+    <Compile Include="Migrations\201804230850103_2018042300.Designer.cs">
+      <DependentUpon>201804230850103_2018042300.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\IHandAppealRepo.cs" />
@@ -498,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712221400446_2017122200.resx">
       <DependentUpon>201712221400446_2017122200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804230850103_2018042300.resx">
+      <DependentUpon>201804230850103_2018042300.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

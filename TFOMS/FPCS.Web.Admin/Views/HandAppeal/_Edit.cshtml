@@ -19,6 +19,7 @@
                 @Html.HiddenFor(x => x.UniqueNumberPart1)
                 @Html.HiddenFor(x => x.MedicalOrganizations)
                 @Html.HiddenFor(x => x.Organizations)
+              
                 <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                     <li id="liInfo" class="active">
                         <a data-toggle="tab" href="#info">Сведения об обращении</a>
@@ -40,6 +41,10 @@
                         <a data-toggle="tab" href="#reviewAppeal">Рассмотрение обращения</a>
                     </li>
                 </ul>
+
+                <input type="submit" value="Сохранить"
+                       name="editHandAppealSend" id="editHandAppealSend" class="btn btn-success" />
+
 
                 <div class="tab-content">
                     <div id="info" class="tab-pane in active">

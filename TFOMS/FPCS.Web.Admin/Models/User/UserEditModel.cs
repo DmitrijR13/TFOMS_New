@@ -34,7 +34,6 @@ namespace FPCS.Web.Admin.Models.User
         [Display(Name = "Имя пользователя")]
         public String Login { get; set; }
 
-        [Required]
         [Display(Name = "Пароль")]
         public String Password { get; set; }
 

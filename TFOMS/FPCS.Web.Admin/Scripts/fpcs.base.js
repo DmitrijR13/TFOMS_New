@@ -3,7 +3,6 @@
 //-------------------------Ajax----------------------------------------------
 //executeService('@Url.Action("Create1")', params, function (data, textStatus) { });
 fpcs.executeService = function (url, params, callbackSuccess) {
-    debugger;
     $.ajax({
         type: "POST",
         url: url,
@@ -12,18 +11,15 @@ fpcs.executeService = function (url, params, callbackSuccess) {
         data: JSON.stringify(params),
         timeout: 1000000000,
         success: function (data, textStatus) {
-            debugger;
             callbackSuccess.call(this, data, textStatus);
         },
         error: function (err) {
-            debugger;
             fpcs.showErrorMessage();
         }
     });
 };
 
 fpcs.executeService2 = function (url, params) {
-    debugger;
     $.ajax({
         cache: false,
         url: url,
@@ -81,11 +77,10 @@ fpcs.sendForm = function (formID, callbackSuccess) {
             processData: false,
             contentType: false,
             success: function (data, textStatus) {
-                debugger;
                 callbackSuccess.call(this, data, textStatus);
             },
             error: function (response) {
-                debugger;
+
                 fpcs.showErrorMessage();
             }
         });
@@ -222,7 +217,6 @@ fpcs.showMessage = function(text) {
 fpcs.showDialog = function(title, html, width, isTop) {
     if (width == null) width = "65%";
     var position = ['center'];
-    debugger;
     if (isTop == undefined || isTop) { position = ['top', 20]; }
     $("#dialog-message").html(html);
     var d = $("#dialog-message");
@@ -260,7 +254,6 @@ fpcs.closeInternalDialog = function (obj) {
 
 fpcs.initDatePicker = function() {
     $('.date-picker').datepicker().next().on(ace.click_event, function () {
-        debugger;
         $(this).prev().focus();
     });
 

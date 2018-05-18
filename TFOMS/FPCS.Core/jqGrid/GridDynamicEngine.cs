@@ -20,6 +20,8 @@ namespace FPCS.Core.jqGrid
         protected override IQueryable<T> ApplyFilter<T>(IQueryable<T> query, PropertyInfo prop, GridProperty attr, String name, Object value)
         {
             var exp = String.Format(GetFilterOperationExpression(attr.FilterOperation), name);
+            if (attr.FilterOperation == FilterOperation.Contains)
+                value = value.ToString().ToUpper();
             query = query.Where(exp, value);
             return query;
         }
@@ -38,7 +40,7 @@ namespace FPCS.Core.jqGrid
                 case FilterOperation.StartsWith:
                     return "{0}.StartsWith(@0)";
                 case FilterOperation.Contains:
-                    return "{0}.Contains(@0)";
+                    return "{0}.ToUpper().Contains(@0)";
                 case FilterOperation.Equal:
                     return "{0}.Equals(@0)";
                 case FilterOperation.Equal2:

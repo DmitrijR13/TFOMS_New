@@ -9,7 +9,7 @@
             pagerSelector: "#gridPager",
             localStorageId: "JournalAppeal",
             url: "/JournalAppeal/_Index",
-            rowNum: 1000,
+            rowNum: 100,
             showEditButton: false,
             showDeleteButton: false,
             sortname: 'AppealOrganizationCode',
@@ -18,46 +18,62 @@
                 repeatitems: false,
                 id: "Id"
             },
-            colNames: ['Id', 'СМО','Уникальный номер обращения', 'Дата обращения', 'Тема обращения', 'Сотрудник, принявший обращение', 'Сотрудник, ответсвенный за обращение',
-                'Дата окончания срока рассмотрения обращения', 'Дата фактического закрытия обращения', 'Результат обращения','Действия'],
+            colNames: ['Id', 'Номер', 'Дата обращения', 'Код обращения', 'Вид обращения', 'Сотрудник',
+                'Заявитель', 'Застрахованное лицо', 'Направивший орган', 'Дата фактического закрытия обращения', 'СМО', 'Тема обращения',
+                'Результат обращения', 'Действия'],
             colModel: [
                 { name: 'Id', index: 'Id', key: true, hidden: true },
                  {
-                     name: 'AppealOrganizationCode', index: 'AppealOrganizationCode',
-                     sortable: true, width: 100
+                     name: 'AppealUniqueNumber', index: 'AppealUniqueNumber', width: 50,
+                     sortable: true, resize: false
                  },
+                  {
+                      name: 'Date', index: 'Date',
+                      sortable: true, width: 40, search: false
+                  },
+                   {
+                       name: 'AppealCode', index: 'AppealCode',
+                       sortable: true, width: 50
+                   },
+                  {
+                      name: 'AppealName', index: 'AppealName',
+                      sortable: true, width: 50
+                  },
+                  {
+                      name: 'AcceptedBy', index: 'AcceptedBy',
+                      sortable: true, width: 150
+                  },
+                   {
+                       name: 'Applicant', index: 'Applicant',
+                       sortable: true, width: 100
+                   },
                 {
-                    name: 'AppealUniqueNumber', index: 'AppealUniqueNumber', width: 50,
-                    sortable: true, resize: false
+                    name: 'ReceivedTreatmentPerson', index: 'ReceivedTreatmentPerson',
+                    sortable: true, width: 100
                 },
                 {
-                    name: 'Date', index: 'Date',
-                    sortable: true, width: 40, search: false
-                },
-                {
-                    name: 'AppealTheme', index: 'AppealTheme', width: 60,
-                    sortable: true, resize: false
-                },
-                {
-                    name: 'AcceptedBy', index: 'AcceptedBy',
-                    sortable: true, width: 60
-                },
-                {
-                    name: 'Responsible', index: 'Responsible', width: 50,
-                    sortable: true, resize: false
-                },
-                {
-                    name: 'AppealPlanEndDate', index: 'AppealPlanEndDate',
-                    sortable: true, width: 55, search: false
+                    name: 'OrganizationsName', index: 'OrganizationsName',
+                    sortable: true, width: 100
                 },
                 {
                     name: 'AppealFactEndDate', index: 'AppealFactEndDate', width: 55,
                     sortable: true, resize: false, search: false
                 },
+                 {
+                     name: 'AppealOrganizationCode', index: 'AppealOrganizationCode',
+                     sortable: true, width: 100
+                 },              
+               
+                {
+                    name: 'AppealTheme', index: 'AppealTheme', width: 60,
+                    sortable: true, resize: false
+                },
                 {
                     name: 'ResultName', index: 'ResultName',
                     sortable: true, width: 60
                 },
+                
+                
                
                 { name: 'act', index: 'act', width: 30, fixed: true, sortable: false, resize: false, search: false }
             ],

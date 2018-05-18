@@ -134,7 +134,7 @@ namespace FPCS.Core.jqGrid
                         if (attr != null && attr.IsUsed)
                         {
                             String name = !String.IsNullOrEmpty(attr.Name) ? attr.Name : prop.Name;
-                            
+
                             localQuery = this.ApplyFilter(localQuery, prop, attr, name, value);
                         }
                     }

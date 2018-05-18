@@ -94,7 +94,7 @@
 
 	checkRoleStatus: function (eee) {
 	    var role = $("#ddlRole").val();
-	    debugger;
+
 	    if (role == "User") {
 	        //$("#ddlSmo").prop("hiden", false);
 	        $("#ddlSmo").show();
@@ -160,7 +160,6 @@
 		$(document).on("click", ".gridRowDelete", function (e) {
 			var id = $(this).attr("rowid");
 			var role = $(this).attr("role");
-			debugger;
 			var url = "/User/Delete/" + id;
 			fpcs.executeServiceWithConfirm(url, null, function () {
 				fpcs.user.reloadGrid();

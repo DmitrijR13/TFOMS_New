@@ -1,4 +1,4 @@
-﻿@model FPCS.Web.Admin.Models.Dictionary.DictionaryCreateModel
+﻿@model FPCS.Web.Admin.Models.TypeOfAddressing.TypeOfAddressingCreateModel
 
 <div class="row-fluid">
     <div class="span12 ">
@@ -31,7 +31,14 @@
                     @Html.ValidationMessageFor(m => m.Name)
                 </div>
             </div>
-            
+            <div class="control-group">
+                @Html.LabelFor(x => x.IsUpdateDate, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.CheckBoxFor(x => x.IsUpdateDate, new { placeholder = Html.DisplayNameFor(x => x.IsUpdateDate), @class = "span9" })
+                    @Html.ValidationMessageFor(m => m.IsUpdateDate)
+                </div>
+            </div>
+
             <div class="form-actions">
                 <button class="btn btn-success createTypeOfAddressingSend" type="button">
                     <i class="icon-ok bigger-110"></i>

@@ -11,52 +11,67 @@
             gridWrapper: ".gridWrapper",
             gridSelector: "#gridTable",
             pagerSelector: "#gridPager",
+            //pagerSelectorTop: "#gridPagerTop",
             localStorageId: "HandAppeal",
             url: "/HandAppeal/_Index",
-            rowNum: 100000,
+            rowNum: 100,
             showEditButton: showEditButton,
             showDeleteButton: showDeleteButton,
-            sortname: 'AppealOrganizationCode',
+            sortname: 'AppealUniqueNumber',
             //postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
             jsonReader: {
                 repeatitems: false,
                 id: "Id"
             },
-            colNames: ['Id', 'СМО','Номер', 'Дата обращения', 'Тема обращения', 'Сотрудник, принявший обращение', 'Заявитель',
-                'Дата окончания срока рассмотрения обращения', 'Дата фактического закрытия обращения', 'Результат обращения', 'Файл', 'Файл ответа', '', '', '', 'Действия'],
+            colNames: ['Id', 'Номер', 'Дата обращения', 'Код обращения', 'Вид обращения', 'Сотрудник', 'Заявитель', 'Застрахованное лицо',
+                'Направивший орган', 'Дата фактического закрытия обращения', 'СМО', 'Тема обращения', 'Результат',
+                'Файл', 'Файл ответа', '', '', '', 'Действия'],
             colModel: [
                 { name: 'Id', index: 'Id', key: true, hidden: true },
-                 {
-                     name: 'AppealOrganizationCode', index: 'AppealOrganizationCode',
-                     sortable: true, width: 100
-                 },
                 {
-                    name: 'AppealUniqueNumber', index: 'AppealUniqueNumber', width: 25,
+                    name: 'AppealUniqueNumber', index: 'AppealUniqueNumber', width: 35,
                     sortable: true, resize: false
                 },
                 {
                     name: 'Date', index: 'Date',
                     sortable: true, width: 40, search: false
                 },
-                {
-                    name: 'AppealTheme', index: 'AppealTheme', width: 60,
-                    sortable: true, resize: false
-                },
-                {
-                    name: 'AcceptedBy', index: 'AcceptedBy',
-                    sortable: true, width: 60
-                },
+                 {
+                     name: 'AppealCode', index: 'AppealCode',
+                     sortable: true, width: 100
+                 },
+                  {
+                      name: 'AppealName', index: 'AppealName',
+                      sortable: true, width: 100
+                  },
+                  {
+                      name: 'AcceptedBy', index: 'AcceptedBy',
+                      sortable: true, width: 100
+                  },
+                   {
+                       name: 'Applicant', index: 'Applicant',
+                       sortable: true, width: 100
+                   },
                 {
                     name: 'ReceivedTreatmentPerson', index: 'ReceivedTreatmentPerson',
                     sortable: true, width: 100
                 },
+                 {
+                     name: 'OrganizationsName', index: 'OrganizationsName',
+                     sortable: true, width: 100
+                 },
+                  {
+                      name: 'AppealFactEndDate', index: 'AppealFactEndDate', width: 55,
+                      sortable: true, resize: false, search: false
+                  },
+                 {
+                     name: 'AppealOrganizationCode', index: 'AppealOrganizationCode',
+                     sortable: true, width: 100
+                 },              
+                
                 {
-                    name: 'AppealPlanEndDate', index: 'AppealPlanEndDate',
-                    sortable: true, width: 55, search: false
-                },
-                {
-                    name: 'AppealFactEndDate', index: 'AppealFactEndDate', width: 55,
-                    sortable: true, resize: false, search: false
+                    name: 'AppealTheme', index: 'AppealTheme', width: 60,
+                    sortable: true, resize: false
                 },
                 {
                     name: 'ResultName', index: 'ResultName',
@@ -108,7 +123,6 @@
 
                     var appealDate = handAppeal.toDate(date);
                     appealDate.setDate(appealDate.getDate() + 30);
-                    debugger;
 
                     var currentDate = new Date();
                     if (!date || (!appealFactEndDate && appealDate < currentDate))
@@ -142,16 +156,22 @@
 
         if (!fpcs.getIsTeacher()) {
             fpcs.jqGrid.initNavButtons(null, handAppeal.showCreateDialog, "Добавить новую запись");
+            fpcs.jqGrid.initNavButtonsTop(handAppeal.showCreateDialog, "Добавить новую запись");
+            
         } else {
             fpcs.jqGrid.initNavButtons(null, null, "");
+            fpcs.jqGrid.initNavButtonsTop(null, "")
         }
 
+
+        
         handAppeal.initCreateDialogSend();
         handAppeal.initEditDialog();
         handAppeal.initDeleteOneEntity();
 
         handAppeal.initApplyFilter();
         handAppeal.initClearFilter();
+
 
         //handAppeal.initGenerateUniqueNumber();
 
@@ -185,6 +205,35 @@
                 $("#OZPZRegistrationDateDiv").hide();
             }
 
+        });
+
+        $(document).off("change", ".ddlTypeOfAddressing");
+        $(document).on("change", ".ddlTypeOfAddressing", function (e) {
+            var id = $(".ddlTypeOfAddressing option:selected").val();
+            var value = null;
+            fpcs.executeService("/HandAppeal/IsUpdateDateEnd/" + id, null, function (data) {
+                value = data.Obj;
+                if (value) {
+                    var dateFrom = $("#txtDate").val();
+                    if (dateFrom != null && dateFrom != '') {
+                        var newDate = handAppeal.toDate(dateFrom);
+                        newDate.setDate(newDate.getDate() + 30);
+                        var d = newDate.getDate();
+                        var m = newDate.getMonth();
+                        m += 1;  // JavaScript months are 0-11
+                        m = handAppeal.pad(m, 2);
+                        var y = newDate.getFullYear();
+
+                        $("#txtAppealPlanEndDate").val(d + "." + m + "." + y);
+                        $("#OZPZRegistrationDateDiv").show();
+                    }
+                }
+                else {
+                    $("#txtAppealPlanEndDate").val('');
+                    $("#txOZPZRegistrationDate").val('');
+                    $("#OZPZRegistrationDateDiv").hide();
+                }
+            });
         });
     },
 
@@ -396,8 +445,6 @@
         });
     },
     
-   
-
     reloadGrid: function () {
         jQuery("#gridTable").trigger("reloadGrid")
     }

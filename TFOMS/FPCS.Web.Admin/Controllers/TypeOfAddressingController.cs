@@ -13,6 +13,7 @@ using FPCS.Data.Exceptions;
 using FPCS.Core.Extensions;
 using FPCS.Core;
 using FPCS.Web.Admin.Models.Dictionary;
+using FPCS.Web.Admin.Models.TypeOfAddressing;
 
 namespace FPCS.Web.Admin.Controllers
 {
@@ -34,27 +35,30 @@ namespace FPCS.Web.Admin.Controllers
                     {
                         Id = x.TypeOfAddressingId,
                         x.Code,
-                        x.Name
+                        x.Name,
+                        x.IsUpdateDateEnd
                     })
                     .ToList();
 
                 var engine = new GridDynamicEngine(options, dictionaryListOptions);
-                var resultTemp = engine.ApplySort(engine.ApplyFilter(typeOfAddressing.AsQueryable())).Select(x => new DictionaryIndexModel
+                var resultTemp = engine.ApplySort(engine.ApplyFilter(typeOfAddressing.AsQueryable())).Select(x => new TypeOfAddressingIndexModel
                 {
                     Id = x.Id,
                     Code = x.Code,
-                    Name = x.Name
+                    Name = x.Name,
+                    IsUpdateDate = x.IsUpdateDateEnd ? "Да" : "Нет"
                 })
                 .ToList();
 
 
                 Int32 totalCount = resultTemp.Count();
 
-                var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new DictionaryIndexModel
+                var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new TypeOfAddressingIndexModel
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Code = x.Code
+                    Code = x.Code,
+                    IsUpdateDate = x.IsUpdateDate
                 });
 
                 return Json(result);
@@ -121,13 +125,13 @@ namespace FPCS.Web.Admin.Controllers
         [HttpGet]
         public PartialViewResult _Create()
         {
-            var model = new DictionaryCreateModel();
+            var model = new TypeOfAddressingCreateModel();
             return PartialView(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Create(DictionaryCreateModel model)
+        public ActionResult _Create(TypeOfAddressingCreateModel model)
         {
             if (ModelState.IsValid)
             {
@@ -137,7 +141,7 @@ namespace FPCS.Web.Admin.Controllers
                     {
                         var repo = uow.GetRepo<ITypeOfAddressingRepo>();
 
-                        var dbEntity = repo.Add(model.Code, model.Name);
+                        var dbEntity = repo.Add(model.Code, model.Name, model.IsUpdateDate);
 
                         uow.Commit();
 
@@ -163,11 +167,12 @@ namespace FPCS.Web.Admin.Controllers
                 if (dbEntity == null) return ErrorPartial("Запись {0} не найден", id);
 
 
-                var model = new DictionaryEditModel
+                var model = new TypeOfAddressingEditModel
                 {
                     Id = dbEntity.TypeOfAddressingId,
                     Code = dbEntity.Code,
-                    Name = dbEntity.Name
+                    Name = dbEntity.Name,
+                    IsUpdateDate = dbEntity.IsUpdateDateEnd
                 };
                 return PartialView(model);
             }
@@ -175,7 +180,7 @@ namespace FPCS.Web.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Edit(DictionaryEditModel model)
+        public ActionResult _Edit(TypeOfAddressingEditModel model)
         {
             if (ModelState.IsValid)
             {
@@ -190,6 +195,7 @@ namespace FPCS.Web.Admin.Controllers
 
                         dbEntity.Code = model.Code.Trim();
                         dbEntity.Name = model.Name;
+                        dbEntity.IsUpdateDateEnd = model.IsUpdateDate;
                         dbEntity.UpdatedDate = DateTime.Now;
 
                         repo.Update(dbEntity);

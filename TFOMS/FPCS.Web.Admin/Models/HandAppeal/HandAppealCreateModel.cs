@@ -226,7 +226,7 @@ namespace FPCS.Web.Admin.Models.HandAppeal
         /// <summary>
         /// Дата исполнения
         /// </summary>
-        [Display(Name = "Дата исполнения")]
+        [Display(Name = "Дата запроса")]
         public DateTime GuideDate { get; set; }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace FPCS.Web.Admin.Models.HandAppeal
         /// <summary>
         /// Эксперт организатор/ Эксперт КМП (Ф.И.О., код)  
         /// </summary>
-        [Display(Name = "Эксперт организатор")]
+        [Display(Name = "Эксперт качества")]
         public String InspectionExpert { get; set; }
 
         /// <summary>

@@ -38,6 +38,26 @@ namespace FPCS.Web.Admin.Models.HandAppeal
         public String ReceivedTreatmentPerson { get; set; }
 
         /// <summary>
+        /// Застрахованное лицо
+        /// </summary>
+        public String Applicant { get; set; }
+
+        /// <summary>
+        /// Код обращения
+        /// </summary>
+        public String AppealCode { get; set; }
+
+        /// <summary>
+        /// Вид обращения
+        /// </summary>
+        public String AppealName { get; set; }
+
+        /// <summary>
+        /// Направивший орган
+        /// </summary>
+        public String OrganizationsName { get; set; }
+
+        /// <summary>
         /// Дата окончания срока рассмотрения обращения
         /// </summary>
         public String AppealPlanEndDate { get; set; }

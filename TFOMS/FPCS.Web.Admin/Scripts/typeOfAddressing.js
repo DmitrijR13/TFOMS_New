@@ -21,7 +21,7 @@
 				repeatitems: false,
 				id: "Id"
 			},
-			colNames: ['Id', 'Код', 'Наименование', 'Действия'],
+			colNames: ['Id', 'Код', 'Наименование', 'Расчитывать дату','Действия'],
 			colModel: [
 				{ name: 'Id', index: 'Id', key: true, hidden: true },
 				{
@@ -32,6 +32,9 @@
 				    name: 'Name', index: 'Name',
 				    sortable: true
 				},
+                {
+                    name: 'IsUpdateDate', index: 'IsUpdateDate'
+                },
 				{ name: 'act', index: 'act', width: 60, fixed: true, sortable: false, resize: false, search: false }
 			]
 		});

@@ -178,6 +178,7 @@ namespace FPCS.Web.Admin.Controllers
                     Login = dbEntity.Login,
                     Role = dbEntity.Role,
                     IsLocked = dbEntity.IsLocked,
+                    Password = dbEntity.Password,
                 };
                 model.Init();
                 return PartialView(model);
@@ -187,9 +188,17 @@ namespace FPCS.Web.Admin.Controllers
         [HttpPost]
         public ActionResult _Edit(UserEditModel model)
         {
+            string password = model.Password;
+
             if (String.IsNullOrEmpty(model.Password))
             {
-                if (String.IsNullOrEmpty(model.Password)) ModelState.AddModelError("Password", "*");
+                using (var uow = UnityManager.Resolve<IUnitOfWork>())
+                {
+                    var repo = uow.GetRepo<IUserRepo>();
+                    var user = repo.Get(model.DbUserId);
+                    if (user != null)
+                        password = user.Password;
+                }
             }
 
             if (ModelState.IsValid || model.SmoId == null)
@@ -201,7 +210,7 @@ namespace FPCS.Web.Admin.Controllers
                     using (var uow = UnityManager.Resolve<IUnitOfWork>())
                     {                       
                         var repo = uow.GetRepo<IUserRepo>();
-                        var dbEntity = repo.Update(model.DbUserId, model.Login, model.Password, model.Email, model.FirstName, model.LastName,
+                        var dbEntity = repo.Update(model.DbUserId, model.Login, password, model.Email, model.FirstName, model.LastName,
                             model.MiddleInitial, model.SmoId, model.IsLocked, model.Role);
                         uow.Commit();
 
