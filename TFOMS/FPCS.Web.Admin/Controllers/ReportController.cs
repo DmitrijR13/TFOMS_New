@@ -108,17 +108,19 @@ namespace FPCS.Web.Admin.Controllers
             using (var uow = UnityManager.Resolve<IUnitOfWork>())
             {
                 var repo = uow.GetRepo<IHandAppealRepo>();
-                var handAppeals = repo.GetAll().Where(x => !dateFromPost3.HasValue || (x.Date >= dateFromPost3.Value))
-                    .Where(x => !dateToPost3.HasValue || (x.Date <= dateToPost3.Value))
-                    .Where(x => !smoIdPost3.HasValue || (x.SMOId == smoIdPost3.Value))
-                    .Select(x => new
-                    {
-                        TypeOfAddressing = x.TypeOfAddressing != null ? x.TypeOfAddressing.Name : "",
-                        WayOfAddressing = x.WayOfAddressing != null ? x.WayOfAddressing.Name : "",
-                        ThemeAppealCitizens = x.ThemeAppealCitizens != null ? x.ThemeAppealCitizens.Name : "",
-                        Complaint = x.Complaint != null ? x.Complaint.Name : "",
+				var handAppeals = repo.GetAll().Where(x => !dateFromPost3.HasValue || (x.Date >= dateFromPost3.Value))
+					.Where(x => !dateToPost3.HasValue || (x.Date <= dateToPost3.Value))
+					.Where(x => !smoIdPost3.HasValue || (x.SMOId == smoIdPost3.Value))
+					.Select(x => new
+					{
+						TypeOfAddressing = x.TypeOfAddressing != null ? x.TypeOfAddressing.Name : "",
+						WayOfAddressing = x.WayOfAddressing != null ? x.WayOfAddressing.Name : "",
+						ThemeAppealCitizens = x.ThemeAppealCitizens != null ? x.ThemeAppealCitizens.Name : "",
+						ThemeAppealCitizensDateClose = x.ThemeAppealCitizens != null ? x.ThemeAppealCitizens.DateClose : null,
+						Complaint = x.Complaint != null ? x.Complaint.Name : "",
                         Worker = x.Worker != null ? x.Worker.Surname + " " + x.Worker.Name + " " + x.Worker.SecondName : "",
-                        AppealResult = x.AppealResult != null ? x.AppealResult.Name : ""
+                        AppealResult = x.AppealResult != null ? x.AppealResult.Name : "",
+                        ReceivedTreatmentPerson = x.ApplicantSurname + " " + x.ApplicantName + " " + x.ApplicantSecondName
                     });
 
                 foreach (var handAppeal in handAppeals)
@@ -126,9 +128,11 @@ namespace FPCS.Web.Admin.Controllers
                     book.Worksheet(1).Row(row).Cell(1).Value = handAppeal.TypeOfAddressing;
                     book.Worksheet(1).Row(row).Cell(2).Value = handAppeal.WayOfAddressing;
                     book.Worksheet(1).Row(row).Cell(3).Value = handAppeal.ThemeAppealCitizens;
-                    book.Worksheet(1).Row(row).Cell(4).Value = handAppeal.Complaint;
-                    book.Worksheet(1).Row(row).Cell(5).Value = handAppeal.Worker;
-                    book.Worksheet(1).Row(row).Cell(6).Value = handAppeal.AppealResult;
+					book.Worksheet(1).Row(row).Cell(4).Value = handAppeal.ThemeAppealCitizensDateClose.HasValue ? handAppeal.ThemeAppealCitizensDateClose.Value.ToShortDateString() : "";
+					book.Worksheet(1).Row(row).Cell(5).Value = handAppeal.Complaint;
+                    book.Worksheet(1).Row(row).Cell(6).Value = handAppeal.Worker;
+                    book.Worksheet(1).Row(row).Cell(7).Value = handAppeal.AppealResult;
+                    book.Worksheet(1).Row(row).Cell(8).Value = handAppeal.ReceivedTreatmentPerson;
 
                     row++;
 
@@ -678,7 +682,7 @@ namespace FPCS.Web.Admin.Controllers
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             string cmdText = @"SELECT coalesce(sum(Case WHEN typeofaddressingid in (2,3,5) THEN 1 ELSE 0 END), 0) as write_, 
                                     coalesce(sum(Case WHEN typeofaddressingid in (1,4) THEN 1 ELSE 0 END), 0) as speak_
-                                FROM dbo.journalappeal " +
+                                FROM dbo.journalappeal ja " +
                                 where;
             //stream.WriteLine(cmdText);
             NpgsqlConnection conn = new NpgsqlConnection(connStr);
@@ -701,7 +705,7 @@ namespace FPCS.Web.Admin.Controllers
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             string cmdText = @"SELECT coalesce(sum(Case WHEN typeofaddressingid in (2,3,5) THEN 1 ELSE 0 END), 0) as write_, 
                                     coalesce(sum(Case WHEN typeofaddressingid in (1,4) THEN 1 ELSE 0 END), 0) as speak_
-                                FROM dbo.journalappeal " +
+                                FROM dbo.journalappeal ja " +
                                 where;
             //stream.WriteLine(cmdText);
             NpgsqlConnection conn = new NpgsqlConnection(connStr);

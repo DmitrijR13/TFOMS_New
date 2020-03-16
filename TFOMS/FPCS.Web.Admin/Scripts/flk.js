@@ -7,10 +7,10 @@
             pagerSelector: "#gridPager",
             localStorageId: "FLK",
             url: "/FLK/_Index",
-            rowNum: 100000,
+            rowNum: 100,
             showEditButton: false,
             showDeleteButton: false,
-            sortname: 'Name',
+            sortname: 'SmoRegNum',
             jsonReader: {
                 repeatitems: false,
                 id: "Id"

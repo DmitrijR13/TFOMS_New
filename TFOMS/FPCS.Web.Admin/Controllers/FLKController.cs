@@ -51,8 +51,7 @@ namespace FPCS.Web.Admin.Controllers
                         x.ErrorCode,
                         x.FieldName,
                         x.SmoRegNum
-                    })
-                    .ToList();
+                    });
 
                 var engine = new GridDynamicEngine(options, flkListOptions);
                 var resultTemp = engine.ApplySort(engine.ApplyFilter(flk.AsQueryable())).Select(x => new FLKIndexModel
@@ -65,10 +64,29 @@ namespace FPCS.Web.Admin.Controllers
                     ErrorCode = x.ErrorCode,
                     FieldName = x.FieldName,
                     SmoRegNum = x.SmoRegNum
-                })
-                .ToList();
+                });
 
-                Int32 totalCount = resultTemp.Count();
+                int totalCount = 0;
+                var sessionOptions = (FLKListOptions)Session["FLKListOptions" + User.Login]; ;
+                if (Session["FLKCount" + User.Login] == null
+                    || sessionOptions == null
+                    || sessionOptions.AppealNumber != flkListOptions.AppealNumber
+                    || sessionOptions.BaseEntitiyName != flkListOptions.BaseEntitiyName
+                    || sessionOptions.BaseFileName != flkListOptions.BaseFileName
+                    || sessionOptions.Comment != flkListOptions.Comment
+                    || sessionOptions.ErrorCode != flkListOptions.ErrorCode
+                    || sessionOptions.FieldName != flkListOptions.FieldName
+                    || sessionOptions.SmoRegNum != flkListOptions.SmoRegNum
+                   )
+                {
+                    totalCount = resultTemp.Count();
+                    Session["FLKCount" + User.Login] = totalCount;
+                    Session["FLKListOptions" + User.Login] = flkListOptions;
+                }
+                else
+                {
+                    totalCount = Convert.ToInt32(Session["FLKCount" + User.Login]);
+                }
 
                 var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new FLKIndexModel
                 {

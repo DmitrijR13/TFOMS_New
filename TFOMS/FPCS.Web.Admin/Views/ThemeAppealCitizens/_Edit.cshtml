@@ -1,4 +1,7 @@
-﻿@model FPCS.Web.Admin.Models.Dictionary.DictionaryEditModel
+﻿@model FPCS.Web.Admin.Models.Dictionary.DictionaryDateEditModel
+
+
+@Scripts.Render("~/Scripts/moment.js")
 
 <div class="row-fluid">
     <div class="span12 ">
@@ -35,7 +38,12 @@
                                 @Html.ValidationMessageFor(m => m.Name)
                             </div>
                         </div>
-                       
+                        <div class="control-group">
+                            @Html.LabelFor(x => x.DateClose, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(x => x.DateClose, "{0:dd.MM.yyyy}", new { placeholder = Html.DisplayNameFor(x => x.DateClose), @class = "span9", data_date_format = "dd.mm.yyyy", id = "txtDateClose" })
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button class="btn btn-success editThemeAppealCitizensSend" type="button">
                                 <i class="icon-ok bigger-110"></i>
@@ -56,3 +64,16 @@
 </div>
 
 @Html.Script(Scripts.Render("~/bundles/jqueryval"))
+
+<script>
+  $(document).ready(function() {
+	  $("#txtDateClose").datepicker({
+		  dateFormat: "dd.mm.yyyy"
+	  });
+
+	  $.validator.addMethod('date',
+         function (value, element) {
+             return this.optional(element) || moment(value, "DD.MM.YYYY", true).isValid();
+         });
+  });
+</script>

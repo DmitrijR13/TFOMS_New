@@ -23,7 +23,7 @@ namespace FPCS.Web.Admin.Controllers
             return View();
         }
 
-        public JsonResult _Index(GridOptions options, DictionaryListOptions dictionaryListOptions)
+        public JsonResult _Index(GridOptions options, DictionaryDateListOptions dictionaryListOptions)
         {
             using (var uow = UnityManager.Resolve<IUnitOfWork>())
             {
@@ -34,26 +34,30 @@ namespace FPCS.Web.Admin.Controllers
                     {
                         Id = x.ThemeAppealCitizensId,
                         x.Code,
-                        x.Name
+                        x.Name,
+						x.DateClose
                     })
                     .ToList();
 
                 var engine = new GridDynamicEngine(options, dictionaryListOptions);
-                var resultTemp = engine.ApplySort(engine.ApplyFilter(themeAppealCitizens.AsQueryable())).Select(x => new DictionaryIndexModel
-                {
-                    Id = x.Id,
-                    Code = x.Code,
-                    Name = x.Name
-                })
+				var resultTemp = engine.ApplySort(engine.ApplyFilter(themeAppealCitizens.AsQueryable())).Select(x => new DictionaryDateIndexModel
+				{
+					Id = x.Id,
+					Code = x.Code,
+					Name = x.Name,
+					DateClose = x.DateClose.HasValue ? x.DateClose.Value.ToShortDateString() : ""
+
+				})
                 .ToList();
 
                 Int32 totalCount = resultTemp.Count();
 
-                var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new DictionaryIndexModel
-                {
+                var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new DictionaryDateIndexModel
+				{
                     Id = x.Id,
                     Name = x.Name,
-                    Code = x.Code
+                    Code = x.Code,
+					DateClose = x.DateClose
                 });
 
                 return Json(result);
@@ -120,13 +124,13 @@ namespace FPCS.Web.Admin.Controllers
         [HttpGet]
         public PartialViewResult _Create()
         {
-            var model = new DictionaryCreateModel();
+            var model = new DictionaryDateCreateModel();
             return PartialView(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Create(DictionaryCreateModel model)
+        public ActionResult _Create(DictionaryDateCreateModel model)
         {
             if (ModelState.IsValid)
             {
@@ -162,11 +166,12 @@ namespace FPCS.Web.Admin.Controllers
                 if (dbEntity == null) return ErrorPartial("Запись {0} не найден", id);
 
 
-                var model = new DictionaryEditModel
+                var model = new DictionaryDateEditModel
                 {
                     Id = dbEntity.ThemeAppealCitizensId,
                     Code = dbEntity.Code,
-                    Name = dbEntity.Name
+                    Name = dbEntity.Name,
+					DateClose = dbEntity.DateClose
                 };
                 return PartialView(model);
             }
@@ -174,7 +179,7 @@ namespace FPCS.Web.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Edit(DictionaryEditModel model)
+        public ActionResult _Edit(DictionaryDateEditModel model)
         {
             if (ModelState.IsValid)
             {
@@ -190,8 +195,10 @@ namespace FPCS.Web.Admin.Controllers
                         dbEntity.Code = model.Code.Trim();
                         dbEntity.Name = model.Name;
                         dbEntity.UpdatedDate = DateTime.Now;
+						dbEntity.DateClose = model.DateClose;
 
-                        repo.Update(dbEntity);
+
+						repo.Update(dbEntity);
 
                         uow.Commit();
 

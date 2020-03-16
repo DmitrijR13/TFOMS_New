@@ -21,7 +21,7 @@
 				repeatitems: false,
 				id: "Id"
 			},
-			colNames: ['Id', 'Код', 'Наименование', 'Действия'],
+			colNames: ['Id', 'Код', 'Наименование', 'Дата окончания действия', 'Действия'],
 			colModel: [
 				{ name: 'Id', index: 'Id', key: true, hidden: true },
 				{
@@ -32,6 +32,10 @@
 				    name: 'Name', index: 'Name',
 				    sortable: true
 				},
+                {
+                    name: 'DateClose', index: 'DateClose',
+                    sortable: false, width: 100, search: false
+                },
 				{ name: 'act', index: 'act', width: 60, fixed: true, sortable: false, resize: false, search: false }
 			]
 		});

@@ -31,9 +31,10 @@ namespace FPCS.Web.Admin.Controllers
     {
         public ActionResult Index(string message = "")
         {
+
             JournalAppealDateAppealModel model = new JournalAppealDateAppealModel();
-            model.DateFrom = null;
-            model.DateTo = null;
+            model.DateFrom = DateTime.Now.AddMonths(-1);
+            model.DateTo = DateTime.Now;
             model.Message = message;
             return View(model);
         }
@@ -128,9 +129,10 @@ namespace FPCS.Web.Admin.Controllers
                         };
                     }
                     
-                    )
-                    .ToList();
+                    );
 
+                                 
+                options.IsSearch = true;
                 var engine = new GridDynamicEngine(options, journalAppealListOptions);
                 var resultTemp = engine.ApplySort(engine.ApplyFilter(journalAppeal.AsQueryable())).Select(x => new JournalAppealIndexModel
                 {
@@ -149,10 +151,34 @@ namespace FPCS.Web.Admin.Controllers
                     ReceivedTreatmentPerson = x.ReceivedTreatmentPerson,
                     Applicant = x.Applicant,
                     OrganizationsName = x.OrganizationsName
-                })
-                .ToList();
+                });
 
-                Int32 totalCount = resultTemp.Count();
+
+                int totalCount = 0;
+                var sessionOptions = (JournalAppealListOptions)Session["journalAppealListOptions" + User.Login]; ;
+                if (Session["journalAppealCount" + User.Login] == null
+                    || (DateTime?)Session["journalAppealDateFromFilter" + User.Login] != dateFromFilter 
+                    || (DateTime?)Session["journalAppealDateToFilter" + User.Login] != dateToFilter
+                    || sessionOptions == null
+                    || sessionOptions.AcceptedBy != journalAppealListOptions.AcceptedBy
+                    || sessionOptions.AppealCode != journalAppealListOptions.AppealCode
+                    || sessionOptions.AppealName != journalAppealListOptions.AppealName
+                    || sessionOptions.AppealOrganizationCode != journalAppealListOptions.AppealOrganizationCode
+                    || sessionOptions.AppealTheme != journalAppealListOptions.AppealTheme
+                    || sessionOptions.AppealUniqueNumber != journalAppealListOptions.AppealUniqueNumber
+                    || sessionOptions.Applicant != journalAppealListOptions.Applicant
+                   )
+                {
+                    totalCount = resultTemp.Count();
+                    Session["journalAppealCount" + User.Login] = totalCount;
+                    Session["journalAppealDateFromFilter" + User.Login] = dateFromFilter;
+                    Session["journalAppealDateToFilter" + User.Login] = dateToFilter;
+                    Session["journalAppealListOptions" + User.Login] = journalAppealListOptions;
+                }
+                else
+                {
+                    totalCount = Convert.ToInt32(Session["journalAppealCount" + User.Login]);
+                }
 
                 engine = new GridDynamicEngine(options, journalAppealListOptions);
                 var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new JournalAppealIndexModel

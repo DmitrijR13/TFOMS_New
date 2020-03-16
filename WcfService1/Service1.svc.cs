@@ -93,15 +93,19 @@ namespace WcfService1
                 {
                     if (smoIds.ContainsKey(rn_smo) && rn_smo == smoCodeUser)
                     {
+                        string senderId = rn_smo;
+                        string str = DateTime.Now.Year + "" + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
+                        string dirpath = "C:\\FileStore\\" + senderId + "\\" + str;
+                        DirectoryInfo dirIncoming = new DirectoryInfo(dirpath);
                         try
                         {
                             TfomsAnswer answer = new TfomsAnswer();
                             string filename = tfomsZipFile.filename;
                             byte[] buffer = Encoding.Default.GetBytes(tfomsZipFile.file);
-                            string senderId = rn_smo;
-                            string str = DateTime.Now.Year + "" + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
+                           
+                           
                             string path = "C:\\FileStore\\" + senderId + "\\" + str + "\\" + filename;
-                            string dirpath = "C:\\FileStore\\" + senderId + "\\" + str;
+                           
                             errorFile.FNAME_I = filename;
                             errorFile.FNAME = filename.Split('.')[0] + "Result.xml";
                             if (!Directory.Exists(dirpath))
@@ -150,7 +154,7 @@ namespace WcfService1
                                     }
                                 }
                                 string fileInfo = "1111";
-                                DirectoryInfo dirIncoming = new DirectoryInfo(dirpath);
+                               
                                 foreach (var xmlFile in dirIncoming.GetFiles())
                                 {
                                     List<IRP> irps = new List<IRP>();
@@ -457,6 +461,14 @@ namespace WcfService1
                             listPR.Add(pr);
                             errorFile.PR = listPR;
                             List<InsertResult> importResults = InsertResult(errorFile, rn_smo);
+
+                            foreach (var xmlFile in dirIncoming.GetFiles())
+                            {
+                                if (xmlFile.Extension.ToLower() == ".xml")
+                                {
+                                    xmlFile.Delete();
+                                }
+                            }
 
                             return errorFile;
 

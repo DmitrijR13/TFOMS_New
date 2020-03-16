@@ -91,7 +91,7 @@ namespace FPCS.Web.Admin.Controllers
 
                 var organizations = organizationRepo.GetAll().ToList();
 
-                var handAppealr = repo.GetAll().ToList();
+                //var handAppealr = repo.GetAll().ToList();
 
                 string userName = User.Login;
                 var dbUserRepo = uow.GetRepo<IDbUserRepo>();
@@ -152,9 +152,9 @@ namespace FPCS.Web.Admin.Controllers
                         x.AppealCode,
                         x.AppealName,
                         OrganizationsName = String.Join(",", organizations.Where(y => x.OrganizationId.Split(',').ToList().Contains(y.OrganizationId.ToString())).Select(y => y.Name).ToList())
-                    })
-                   .ToList();
+                    });
 
+                options.IsSearch = true;
                 var engine = new GridDynamicEngine(options, handAppealListOptions);
                 var resultTemp = engine.ApplySort(engine.ApplyFilter(handAppeal.AsQueryable())).Select(x => new HandAppealIndexModel
                 {
@@ -177,11 +177,34 @@ namespace FPCS.Web.Admin.Controllers
                     AppealCode = x.AppealCode,
                     AppealName = x.AppealName,
                     OrganizationsName = x.OrganizationsName
-                })
-                .ToList();
-                
+                });
 
-                Int32 totalCount = resultTemp.Count();
+
+                int totalCount = 0;
+                var sessionOptions = (HandAppealListOptions)Session["handAppealListOptions" + User.Login]; ;
+                if (Session["handAppealCount" + User.Login] == null
+                    || (DateTime?)Session["handAppealDateFromFilter" + User.Login] != dateFromFilter
+                    || (DateTime?)Session["handAppealDateToFilter" + User.Login] != dateToFilter
+                    || sessionOptions == null
+                    || sessionOptions.AcceptedBy != handAppealListOptions.AcceptedBy
+                    || sessionOptions.AppealCode != handAppealListOptions.AppealCode
+                    || sessionOptions.AppealName != handAppealListOptions.AppealName
+                    || sessionOptions.AppealOrganizationCode != handAppealListOptions.AppealOrganizationCode
+                    || sessionOptions.AppealTheme != handAppealListOptions.AppealTheme
+                    || sessionOptions.AppealUniqueNumber != handAppealListOptions.AppealUniqueNumber
+                    || sessionOptions.Applicant != handAppealListOptions.Applicant
+                   )
+                {
+                    totalCount = resultTemp.Count();
+                    Session["handAppealCount" + User.Login] = totalCount;
+                    Session["handAppealDateFromFilter" + User.Login] = dateFromFilter;
+                    Session["handAppealDateToFilter" + User.Login] = dateToFilter;
+                    Session["handAppealListOptions" + User.Login] = handAppealListOptions;
+                }
+                else
+                {
+                    totalCount = Convert.ToInt32(Session["handAppealCount" + User.Login]);
+                }
 
                 var result = engine.CreateGridResult2(engine.ApplyPaging(resultTemp.AsQueryable()), totalCount, x => new HandAppealIndexModel
                 {
@@ -235,12 +258,12 @@ namespace FPCS.Web.Admin.Controllers
         [HttpGet]
         public PartialViewResult _Create()
         {
-            Int32 uniqueNumberPart1 = 0;
-            using (var uow = UnityManager.Resolve<IUnitOfWork>())
-            {
-                var repo = uow.GetRepo<IHandAppealRepo>();
-                uniqueNumberPart1 = repo.GetMaxUniqueNumberPart1();
-            }
+            //Int32 uniqueNumberPart1 = 0;
+            //using (var uow = UnityManager.Resolve<IUnitOfWork>())
+            //{
+            //    var repo = uow.GetRepo<IHandAppealRepo>();
+            //    uniqueNumberPart1 = repo.GetMaxUniqueNumberPart1();
+            //}
 
             var model = new HandAppealCreateModel();
             model.Init();
@@ -248,8 +271,8 @@ namespace FPCS.Web.Admin.Controllers
             model.Date = DateTime.Now;
             model.OZPZRegistrationDate = DateTime.Now;
             model.GuideDate = DateTime.Now;
-            model.UniqueNumberPart1 = uniqueNumberPart1;
-            model.AppealUniqueNumber = uniqueNumberPart1.ToString();
+            model.UniqueNumberPart1 = 0;
+            model.AppealUniqueNumber = "";
 
 
             return PartialView(model);
@@ -269,7 +292,17 @@ namespace FPCS.Web.Admin.Controllers
                     model.AppealUniqueNumber = uniqueNumberPart1.ToString();
                 }
             }
-            if(!CheckUniqueNumber(model.AppealUniqueNumber))
+            String baseNumber = String.Empty;
+            if(model.JournalAppealId != 0)
+            {
+                using (var uow = UnityManager.Resolve<IUnitOfWork>())
+                {
+                    var repo = uow.GetRepo<IHandAppealRepo>();
+                    baseNumber = repo.Get(model.JournalAppealId).AppealUniqueNumber;
+                }
+            }
+           
+            if (!CheckUniqueNumber(model.AppealUniqueNumber, baseNumber))
             {
                 ModelState.AddModelError("AppealUniqueNumber", "Данный номер уже используется");
             }
@@ -351,11 +384,21 @@ namespace FPCS.Web.Admin.Controllers
                         handAppeal.OrganizationId = organizations;
 
                         handAppeal.UniqueNumberPart1 = GetIntUniqueNumber(model.AppealUniqueNumber);
+                        handAppeal.JournalAppealId = model.JournalAppealId;
+                        if(handAppeal.JournalAppealId == 0)
+                        {
+                            var dbEntity = repo.Add(handAppeal);
+                            uow.Commit();
+                            model.JournalAppealId = dbEntity.JournalAppealId;
+                        }
+                        else
+                        {
+                            repo.Update(handAppeal);
+                            uow.Commit();
+                        }
 
-                        var dbEntity = repo.Add(handAppeal);
-                        uow.Commit();
-
-                        return JsonRes(dbEntity.JournalAppealId.ToString());
+                       
+                        return JsonRes(model.JournalAppealId);
                     }
                 }
                 catch (Exception ex)

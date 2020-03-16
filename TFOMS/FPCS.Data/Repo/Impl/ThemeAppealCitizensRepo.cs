@@ -48,14 +48,15 @@ namespace FPCS.Data.Repo.Impl
         /// <param name="code">Код записи</param>
         /// <param name="name">Наименование записи</param>
         /// <returns></returns>
-        public ThemeAppealCitizens Update(Int64 themeAppealCitizensId, String code, String name)
+        public ThemeAppealCitizens Update(Int64 themeAppealCitizensId, String code, String name, DateTime? dateClose)
         {
             var themeAppealCitizens = this.Get(themeAppealCitizensId);
             if (themeAppealCitizens == null) throw new NotFoundEntityException("Запись не найдена");
 
             themeAppealCitizens.Code = code;
             themeAppealCitizens.Name = name;
-            themeAppealCitizens.UpdatedDate = DateTime.Now;
+			themeAppealCitizens.DateClose = dateClose;
+			themeAppealCitizens.UpdatedDate = DateTime.Now;
 
             return themeAppealCitizens;
         }

@@ -15,6 +15,7 @@ namespace FPCS.Data.Cofigs
 
             Property(x => x.Code).IsRequired().HasMaxLength(8).HasColumnName("code");
             Property(x => x.Name).IsRequired().HasMaxLength(100).HasColumnName("name");
+			Property(x => x.DateClose).IsOptional().HasColumnName("dateclose");
             Property(x => x.IsDeleted).IsRequired().HasColumnName("isdeleted");
             Property(x => x.CreatedDate).IsRequired().HasColumnName("createddate");
             Property(x => x.UpdatedDate).IsRequired().HasColumnName("updateddate");

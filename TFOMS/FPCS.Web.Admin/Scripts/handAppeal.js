@@ -7,6 +7,8 @@
             showEditButton = false;
             showDeleteButton = false;
         }
+        var dateFrom = $("#txtDateFrom").val();
+        var dateTo = $("#txtDateTo").val();
         fpcs.jqGrid.initGrid({
             gridWrapper: ".gridWrapper",
             gridSelector: "#gridTable",
@@ -18,7 +20,7 @@
             showEditButton: showEditButton,
             showDeleteButton: showDeleteButton,
             sortname: 'AppealUniqueNumber',
-            //postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
+            postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
             jsonReader: {
                 repeatitems: false,
                 id: "Id"
@@ -300,7 +302,6 @@
             if (orgsValues != null && orgsValues.length > 0) {
                 org = orgsValues.join("\r\n");
             }
-            debugger;
 
             var params = {
                 AppealUniqueNumber: $("#AppealUniqueNumber").val(),
@@ -361,9 +362,10 @@
             e.preventDefault();
             fpcs.sendForm("createHandAppealForm", function (data, textStatus) {
                 if (typeof data === "object" && data.ErrorCode === 200) {
+                    $('#JournalAppealId').val(data.Obj);
+                    
                     handAppeal.reloadGrid();
-                    debugger;
-                    fpcs.closeDialog();
+                    //fpcs.closeDialog();
                 }
                 else {
                     fpcs.showDialog("Добавить новую запись", data);
@@ -406,7 +408,7 @@
             fpcs.sendForm("editHandAppealForm", function (data, textStatus) {
                 if (typeof data === "object" && data.ErrorCode === 200) {
                     handAppeal.reloadGrid();
-                    fpcs.closeDialog();
+                   // fpcs.closeDialog();
                 }
                 else {
                     fpcs.showDialog("Изменить данные", data);
@@ -430,7 +432,31 @@
     initApplyFilter: function () {
         $(document).off("click", ".applyFilter");
         $(document).on("click", ".applyFilter", function (e) {
-            $("#gridTable").setGridParam({ postData: { dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
+            var FilterPanelCurrentValues = {
+                AppealTheme: "",
+                AppealUniqueNumber: "",
+                AcceptedBy: "",
+                Responsible: "",
+                AppealCode: "",
+                AppealName: "",
+                ReceivedTreatmentPerson: "",
+                Applicant: "",
+                OrganizationsName: "",
+                ResultName: "",
+                AppealOrganizationCode: ""
+            };
+            FilterPanelCurrentValues.AppealUniqueNumber = $("#gs_AppealUniqueNumber").val();
+            FilterPanelCurrentValues.AppealTheme = $("#gs_AppealTheme").val();
+            FilterPanelCurrentValues.AcceptedBy = $("#gs_AcceptedBy").val();
+            FilterPanelCurrentValues.Responsible = $("#gs_Responsible").val();
+            FilterPanelCurrentValues.AppealCode = $("#gs_AppealCode").val();
+            FilterPanelCurrentValues.AppealName = $("#gs_AppealName").val();
+            FilterPanelCurrentValues.ReceivedTreatmentPerson = $("#gs_ReceivedTreatmentPerson").val();
+            FilterPanelCurrentValues.Applicant = $("#gs_Applicant").val();
+            FilterPanelCurrentValues.OrganizationsName = $("#gs_OrganizationsName").val();
+            FilterPanelCurrentValues.ResultName = $("#gs_ResultName").val();
+            FilterPanelCurrentValues.AppealOrganizationCode = $("#gs_AppealOrganizationCode").val();
+            $("#gridTable").setGridParam({ postData: { handAppealListOptions: FilterPanelCurrentValues, dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
             $("#gridTable").trigger("reloadGrid");
         });
     },
@@ -440,7 +466,32 @@
         $(document).on("click", ".clearFilter", function (e) {
             $("#txtDateFrom").val("");
             $("#txtDateTo").val("");
-            $("#gridTable").setGridParam({ postData: { dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
+            var FilterPanelCurrentValues = {
+                AppealTheme: null,
+                AppealUniqueNumber: null,
+                AcceptedBy: null,
+                Responsible: null,
+                AppealCode: null,
+                AppealName: null,
+                ReceivedTreatmentPerson: null,
+                Applicant: null,
+                OrganizationsName: null,
+                ResultName: null,
+                AppealOrganizationCode: null
+            };
+            $("#gs_AppealUniqueNumber").val("");
+            $("#gs_AppealTheme").val("");
+            $("#gs_AcceptedBy").val("");
+            $("#gs_Responsible").val("");
+            $("#gs_AppealCode").val("");
+            $("#gs_AppealName").val("");
+            $("#gs_ReceivedTreatmentPerson").val("");
+            $("#gs_Applicant").val("");
+            $("#gs_OrganizationsName").val("");
+            $("#gs_ResultName").val("");
+            $("#gs_AppealOrganizationCode").val("");
+            debugger;
+            $("#gridTable").setGridParam({ postData: { handAppealListOptions: FilterPanelCurrentValues, dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
             $("#gridTable").trigger("reloadGrid");
         });
     },

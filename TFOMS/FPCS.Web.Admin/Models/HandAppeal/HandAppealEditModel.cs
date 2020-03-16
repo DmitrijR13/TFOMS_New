@@ -13,9 +13,6 @@ namespace FPCS.Web.Admin.Models.HandAppeal
 {
     public class HandAppealEditModel : HandAppealCreateModel
     {
-        [Required]
-        public Int64 JournalAppealId { get; set; }
-
         public DateTime CreatedDate { get; set; }
     }
 }

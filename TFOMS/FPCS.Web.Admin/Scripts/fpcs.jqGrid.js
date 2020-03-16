@@ -76,7 +76,7 @@
 			//pagerTop: pagerTop,
 			toppager: toppager,
 			rowNum: rowNum,
-			rowList: [10, 20, 50, 100, 1000],
+			rowList: [10, 20, 50, 100],
 
 			loadComplete: function () {
 				var table = this;

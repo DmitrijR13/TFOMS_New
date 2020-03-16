@@ -33,7 +33,7 @@ namespace FPCS.Web.Admin.Models.Worker
         /// Отчество
         /// </summary>
         [MaxLength(100)]
-        [Display(Name = "Отчетсво")]
+        [Display(Name = "Отчество")]
         public String SecondName { get; set; }
 
         /// <summary>

@@ -5,6 +5,9 @@ using FPCS.Data.Entities;
 using FPCS.Data.Exceptions;
 using FPCS.Data.Enums;
 using System.Collections.Generic;
+using System.Data;
+using System.Configuration;
+using Npgsql;
 
 namespace FPCS.Data.Repo.Impl
 {
@@ -34,8 +37,7 @@ namespace FPCS.Data.Repo.Impl
 
         public Int32 GetMaxUniqueNumberPart1()
         {
-            var data = GetAll().ToList();
-            return data.Count == 0 ? 1 : data.Max(x => x.UniqueNumberPart1) + 1;
+            return GetMaxUniqueNumber() + 1;
         }
 
         //public Int32 GetMaxUniqueNumberPart2(Int32 uniqueNumberPart1)
@@ -111,6 +113,30 @@ namespace FPCS.Data.Repo.Impl
             data = GetAll().Where(x => x.AppealUniqueNumber == uniqueNumber && x.AppealUniqueNumber != baseNumber).ToList();
                      
             return data.Count == 0;
+        }
+
+        private Int32 GetMaxUniqueNumber()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            string cmdText = @"SELECT max(unique_number_part_1)
+                                FROM dbo.handappeal";
+            //stream.WriteLine(cmdText);
+            NpgsqlConnection conn = new NpgsqlConnection(connStr);
+            NpgsqlCommand cmd = new NpgsqlCommand(cmdText, conn);
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            try
+            {
+                da.Fill(dt);
+                if (dt != null && dt.Rows.Count > 0)
+                    return Convert.ToInt32(dt.Rows[0][0]);
+                else 
+                    return 1;
+            }
+            catch (Exception e)
+            {
+                return 1;
+            }
         }
     }
 }

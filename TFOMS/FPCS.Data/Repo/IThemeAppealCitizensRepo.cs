@@ -23,6 +23,6 @@ namespace FPCS.Data.Repo
         /// <param name="code">Код записи</param>
         /// <param name="name">Наименование записи</param>
         /// <returns></returns>
-        ThemeAppealCitizens Update(Int64 wayOfAddressingId, String code, String name);
+        ThemeAppealCitizens Update(Int64 wayOfAddressingId, String code, String name, DateTime? dateClose);
     }
 }

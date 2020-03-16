@@ -14,6 +14,9 @@ namespace FPCS.Web.Admin.Models.HandAppeal
 {
     public class HandAppealCreateModel
     {
+        [Required]
+        public Int64 JournalAppealId { get; set; }
+
         /// <summary>
         /// Уникальный номер обращения
         /// </summary>
@@ -342,6 +345,7 @@ namespace FPCS.Web.Admin.Models.HandAppeal
                 var typesOfAddressings = uow.GetRepo<ITypeOfAddressingRepo>()
                    .GetAll()
                    .Select(x => new Lookup<Int64> { Value = x.TypeOfAddressingId, Text = x.Name })
+                   .OrderBy(x => x.Value)
                    .ToList();
 
                 var wayOfAddressings = uow.GetRepo<IWayOfAddressingRepo>()

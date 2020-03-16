@@ -1,8 +1,8 @@
 ﻿journalAppeal = {
 
     initIndexPage: function () {
-        //var dateFrom = null;
-        //var dateTo = null;
+        var dateFrom = $("#txtDateFrom").val();
+        var dateTo = $("#txtDateTo").val();
         fpcs.jqGrid.initGrid({
             gridWrapper: ".gridWrapper",
             gridSelector: "#gridTable",
@@ -13,7 +13,7 @@
             showEditButton: false,
             showDeleteButton: false,
             sortname: 'AppealOrganizationCode',
-            //postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
+            postData: { dateFromFilter: dateFrom, dateToFilter: dateTo },
             jsonReader: {
                 repeatitems: false,
                 id: "Id"
@@ -123,7 +123,31 @@
     initApplyFilter: function () {
         $(document).off("click", ".applyFilter");
         $(document).on("click", ".applyFilter", function (e) {
-            $("#gridTable").setGridParam({ postData: { dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
+            var FilterPanelCurrentValues = {
+                AppealTheme: "",
+                AppealUniqueNumber: "",
+                AcceptedBy: "",
+                Responsible: "",
+                AppealCode: "",
+                AppealName: "",
+                ReceivedTreatmentPerson: "",
+                Applicant: "",
+                OrganizationsName: "",
+                ResultName: "",
+                AppealOrganizationCode: ""
+            };
+            FilterPanelCurrentValues.AppealUniqueNumber = $("#gs_AppealUniqueNumber").val();
+            FilterPanelCurrentValues.AppealTheme = $("#gs_AppealTheme").val();
+            FilterPanelCurrentValues.AcceptedBy = $("#gs_AcceptedBy").val();
+            FilterPanelCurrentValues.Responsible = $("#gs_Responsible").val();
+            FilterPanelCurrentValues.AppealCode = $("#gs_AppealCode").val();
+            FilterPanelCurrentValues.AppealName = $("#gs_AppealName").val();
+            FilterPanelCurrentValues.ReceivedTreatmentPerson = $("#gs_ReceivedTreatmentPerson").val();
+            FilterPanelCurrentValues.Applicant = $("#gs_Applicant").val();
+            FilterPanelCurrentValues.OrganizationsName = $("#gs_OrganizationsName").val();
+            FilterPanelCurrentValues.ResultName = $("#gs_ResultName").val();
+            FilterPanelCurrentValues.AppealOrganizationCode = $("#gs_AppealOrganizationCode").val();
+            $("#gridTable").setGridParam({ postData: { journalAppealListOptions: FilterPanelCurrentValues, dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
             $("#gridTable").trigger("reloadGrid");
         });
     },
@@ -133,7 +157,31 @@
         $(document).on("click", ".clearFilter", function (e) {
             $("#txtDateFrom").val("");
             $("#txtDateTo").val("");
-            $("#gridTable").setGridParam({ postData: { dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
+            var FilterPanelCurrentValues = {
+                AppealTheme: null,
+                AppealUniqueNumber: null,
+                AcceptedBy: null,
+                Responsible: null,
+                AppealCode: null,
+                AppealName: null,
+                ReceivedTreatmentPerson: null,
+                Applicant: null,
+                OrganizationsName: null,
+                ResultName: null,
+                AppealOrganizationCode: null
+            };
+            $("#gs_AppealUniqueNumber").val("");
+            $("#gs_AppealTheme").val("");
+            $("#gs_AcceptedBy").val("");
+            $("#gs_Responsible").val("");
+            $("#gs_AppealCode").val("");
+            $("#gs_AppealName").val("");
+            $("#gs_ReceivedTreatmentPerson").val("");
+            $("#gs_Applicant").val("");
+            $("#gs_OrganizationsName").val("");
+            $("#gs_ResultName").val("");
+            $("#gs_AppealOrganizationCode").val("");
+            $("#gridTable").setGridParam({ postData: { journalAppealListOptions: FilterPanelCurrentValues, dateFromFilter: $("#txtDateFrom").val(), dateToFilter: $("#txtDateTo").val() } });
             $("#gridTable").trigger("reloadGrid");
         });
     },

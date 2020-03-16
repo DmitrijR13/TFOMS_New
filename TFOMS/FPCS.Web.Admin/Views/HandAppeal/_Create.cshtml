@@ -11,7 +11,8 @@
         <div class="controls">
             @Html.ValidationSummary(true)
         </div>
-        @Html.HiddenFor(x => x.UniqueNumberPart1)        
+        @Html.HiddenFor(x => x.UniqueNumberPart1)     
+        @Html.HiddenFor(x => x.JournalAppealId)   
 
         <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
             <li id="liInfo" class="active">
@@ -50,7 +51,7 @@
                 </div>
                 <div class="row-fluid no-margin-bottom no-margin-top no-margin-left no-margin-right">
                     <div class="span12 no-margin-bottom no-margin-top no-margin-left no-margin-right">
-                        <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
+                        @*<div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
                             <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
                                 <div class="controls mleft0">
                                     @Html.LabelFor(x => x.AppealUniqueNumber, new { @class = "span6" })
@@ -58,7 +59,7 @@
                                     @Html.ValidationMessageFor(m => m.AppealUniqueNumber)
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="span6 no-margin-bottom no-margin-top no-margin-left no-margin-right mleft0">
                             <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
                                 <div class="controls mleft0">                                  
@@ -494,7 +495,7 @@
                             <div class="control-group no-margin-bottom no-margin-top no-margin-left no-margin-right">
                                 <div class="controls mleft0">
                                     @Html.LabelFor(x => x.SMOOrganizationName, new { @class = "span3 red" })
-                                    @Html.DropDownListFor(x => x.SMOId, Model.SMOOrganizationName, "Выберете СМО", new { @class = "span9 ddlSMOOrganizationName" })
+                                    @Html.DropDownListFor(x => x.SMOId, Model.SMOOrganizationName, "Выберите СМО", new { @class = "span9 ddlSMOOrganizationName" })
                                 </div>
                             </div>
                         </div>
@@ -521,7 +522,7 @@
                 <div class="control-group no-margin-bottom no-margin-top">
                     @Html.LabelFor(x => x.PassedEventName, new { @class = "control-label-detail" })
                     <div class="controls-detail">
-                        @Html.DropDownListFor(x => x.PassedEventId, Model.PassedEventName, "Выберете мероприятие", new { @class = "span5 auto-width-100 ddlPassedEvent" })
+                        @Html.DropDownListFor(x => x.PassedEventId, Model.PassedEventName, "Выберите мероприятие", new { @class = "span5 auto-width-100 ddlPassedEvent" })
                     </div>
                 </div>
                 <div class="control-group no-margin-bottom no-margin-top">
